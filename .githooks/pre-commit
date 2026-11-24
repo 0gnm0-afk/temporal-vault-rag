@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Block commits whose staged paths or added lines contain any denylist entry.
+# Denylist path: `git config tvrag.denylist` (relative paths resolve against the
+# repo root). Unset or missing denylist => commit blocked (fail closed).
+set -euo pipefail
+root=$(git rev-parse --show-toplevel)
+deny=$(git config --get tvrag.denylist || true)
+if [ -z "$deny" ]; then
+  echo "pre-commit: set the denylist path: git config tvrag.denylist <path>" >&2
+  exit 1
+fi
+case "$deny" in /*|[A-Za-z]:*) ;; *) deny="$root/$deny" ;; esac
+if [ ! -s "$deny" ]; then
+  echo "pre-commit: denylist not found or empty: $deny" >&2
+  echo "  build it: python scripts/build_denylist.py <snapshot_dir>" >&2
+  exit 1
+fi
+pat=$(mktemp); trap 'rm -f "$pat"' EXIT
+tr -d '\r' < "$deny" | grep -v '^[[:space:]]*$' > "$pat" || true
+export LC_ALL=C
+hits=0
+names=$(git -c core.quotepath=off diff --cached --name-only --diff-filter=ACMR)
+if [ -n "$names" ] && printf '%s\n' "$names" | grep -nFf "$pat" >/dev/null; then
+  echo "pre-commit: staged file path matches denylist:" >&2
+  printf '%s\n' "$names" | grep -Ff "$pat" | sed 's/^/  /' >&2
+  hits=1
+fi
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  added=$(git -c core.quotepath=off diff --cached -U0 --no-color -- "$f" | grep '^+' | grep -v '^+++' || true)
+  if [ -n "$added" ] && printf '%s\n' "$added" | grep -qFf "$pat"; then
+    echo "pre-commit: denylisted string in staged changes of $f (lines not shown)" >&2
+    hits=1
+  fi
+done <<< "$names"
+if [ "$hits" -ne 0 ]; then
+  echo "pre-commit: commit blocked (leak guard)." >&2
+  exit 1
+fi

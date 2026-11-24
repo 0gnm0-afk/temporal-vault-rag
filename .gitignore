@@ -1,0 +1,20 @@
+# Environment
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Local config (real paths)
+configs/local.yaml
+
+# Data, indexes, models: never in the repo
+data/
+snapshots/
+index/
+results/
+models/
+*.lance/
+*.lance
+lancedb/

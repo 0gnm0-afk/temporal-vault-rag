@@ -1,0 +1,16 @@
+# Example config. Copy to configs/local.yaml (gitignored) and edit.
+# Paths are relative to the repo root. Private data lives in a sibling folder
+# outside the repo; subfolders: snapshots/<id>, index, eval, results.
+snapshot_id: "<wiki-commit-hash>"
+paths:
+  private_root: ../private
+embedding:
+  model: BAAI/bge-m3
+  device: cpu
+  batch_size: 8
+  normalize: true
+bm25:
+  tokenizer: kiwipiepy
+retrieve:
+  top_k: 5
+  rrf_k: 60
