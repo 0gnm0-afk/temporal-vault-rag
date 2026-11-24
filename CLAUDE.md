@@ -9,16 +9,21 @@
 - 모델 받기: `python scripts/download_model.py` (bge-m3 dense 가중치만, ONNX·colbert·sparse 제외, 약 2.2GB)
 - 테스트: `python -m pytest -q` / 모델 로딩 제외: `python -m pytest -q -m "not slow"` / 오프라인: `$env:HF_HUB_OFFLINE=1`
 - 콘솔 한글이 깨지면 `$env:PYTHONUTF8=1` (출력 인코딩 문제일 뿐 동작에는 영향 없음)
+- 데모 전체 재현(청킹 → 인덱스 → 모드 A·B 평가): `python -m tvrag.run --config configs/demo.yaml`. 결과는 `demo/results/<날짜>_{A,B,AB}.{json,md}`, 빌드물은 `demo/build/`(gitignore). CPU에서 2분 안팎.
+- 실제 볼트: `python -m tvrag.run --config configs/local.yaml` (청크가 있으면 재사용, 인덱스는 manifest가 청크 해시·모델·토크나이저 설정과 다를 때만 다시 만듦. 644청크 임베딩 CPU 약 9분). 평가셋은 `paths.eval_set` 또는 `--eval <파일>`. `--no-eval`은 인덱스까지만.
+- 단계별: `python -m tvrag.chunk|index|eval --config ...`, 검색 확인: `python -m tvrag.retrieve --config ... -m B -k 5 "질문"`
 
 ## 모듈과 데이터 흐름 (`src/tvrag/`)
 `config` → `ingest` → `chunk` → `index` → `retrieve` → `eval`, 모드 D는 `facts`가 추가로 붙는다.
 - `config`: `.env`를 읽어 HF 캐시 경로를 먼저 지정하고 YAML 설정을 읽는다. HF를 쓰는 모듈보다 먼저 import한다. 상대 경로는 레포 루트 기준.
 - `ingest`: 스냅샷 폴더의 Markdown → 문서(프론트매터 + 본문).
 - `chunk`: 헤딩 단위 청크. 사건 시각은 날짜 헤딩 → 프론트매터 `date` → `created` 순.
-- `index`: bge-m3 임베딩을 LanceDB에, kiwipiepy 형태소로 BM25 인덱스. LanceDB를 고른 이유: 파일 기반 임베디드 저장소라 서버가 없고, 메타데이터(사건 시각) 컬럼에 where 필터를 걸 수 있어 as-of 검색에 맞다.
-- `retrieve`: 모드 A 벡터, B +BM25(RRF), C +시간(as-of 필터, 최신성 가중, 변화 질문은 시간순 다중 시점), D +사실표. 출력에 답한 모드와 근거 청크를 함께 낸다.
+- `index`: bge-m3 임베딩을 LanceDB에, kiwipiepy 형태소로 BM25 인덱스. LanceDB를 고른 이유: 파일 기반 임베디드 저장소라 서버가 없고, 메타데이터(사건 시각) 컬럼에 where 필터를 걸 수 있어 as-of 검색에 맞다. 임베딩·BM25 입력은 `문서제목 > 헤딩경로` + 본문(`passage_text`). BM25는 내용 형태소(NNG·NNP·NR·VV·VA·XR·SL·SH·SN)만 남긴다: 조사·어미·접미사·의존명사는 어디에나 있어 잡음이고, 단위·숫자는 질문이 묻는 값이라 남긴다. 인덱스 폴더: `lancedb/`, `bm25_tokens.jsonl`, `manifest.json`(타임스탬프 없음, 같은 입력이면 같은 내용. `vectors_sha256`로 재현성 확인).
+- `retrieve`: 공통 인터페이스 `retrieve(question, mode, k, as_of=None) -> [Hit]`(Hit에 모드·점수·근거 청크). 모드 A 벡터(LanceDB 코사인, 전수 검색), B는 벡터와 BM25 각 상위 `retrieve.candidates`개를 RRF(`rrf_k`=60)로 합침. C +시간(as-of 필터, 최신성 가중, 변화 질문은 시간순 다중 시점), D +사실표는 S5·S6에서 구현(지금은 NotImplementedError). `as_of`는 A·B에서 받기만 한다.
 - `facts`: 이중 시간 사실표 `(대상, 속성, 값, 측정조건, 유효시작, 유효끝, 근거청크, 기록시각)`. 새 값은 이전 행의 유효끝만 채우고 지우지 않는다.
-- `eval`: Recall@5, MRR, 시점 오염률, 최신성 정확도, 이력 완결도와 신뢰구간.
+- `eval`: Recall@5, MRR, 시점 오염률, 최신성 정확도, 이력 완결도와 신뢰구간. 지표 정의는 `eval.py` 모듈 docstring이 기준. 요점: MRR은 상위 `eval.depth`(20)개 청크 순위로 계산, 이력 완결도는 상위 `eval.history_k`(10)개 청크가 변화 시점 날짜를 event_date 또는 본문의 완전한 날짜 표기로 덮는 비율(event_date만 쓴 값도 함께 보고). 정답 경로는 `eval.doc_prefix` 뒤로 잘라 맞춘다(볼트 이름은 설정에만). 실행 시 청크와 안 맞는 정답 문서·섹션을 경고로 출력하고 결과 meta에 남긴다.
+- `run`: 위 단계를 한 명령으로 묶는다.
+- `demo/`: 가상 인물의 운동·식단 볼트(`vault/topics` 6, `vault/sessions` 24)와 공개 평가셋 `eval.jsonl`(4유형 각 5문항, 기준일 2025-06-30). 일부러 넣은 함정: 측정 조건이 다른 체중(식후·운동 직후), 세 번 넘게 바뀐 칼로리 한도, `created` 날짜를 가진 "현재 기준" 청크, 옛 값과 새 값이 한 청크에 있는 경우.
 
 ## 공개·비공개 경계
 - 이 레포는 공개 예정이다. 들어가도 되는 것: 코드, 합성 데모 볼트와 그 공개 평가셋, 평가 숫자.

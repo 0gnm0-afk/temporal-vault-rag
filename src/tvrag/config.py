@@ -49,3 +49,23 @@ def load_config(path: str | os.PathLike | None = None) -> dict:
 
 
 load_env()
+
+
+def data_paths(cfg: dict) -> dict[str, Path | None]:
+    """Data locations. Explicit `paths.<name>` wins; otherwise derived from
+    `paths.private_root` and `snapshot_id` (snapshots/<id>, chunks/<id>.jsonl,
+    index/<id>, results)."""
+    p = cfg.get("paths") or {}
+    root = Path(p.get("private_root") or REPO_ROOT)
+    snap = str(cfg.get("snapshot_id") or "snapshot")
+
+    def pick(key: str, default: Path | None) -> Path | None:
+        return Path(p[key]) if p.get(key) else default
+
+    return {
+        "snapshot": pick("snapshot", root / "snapshots" / snap),
+        "chunks": pick("chunks", root / "chunks" / f"{snap}.jsonl"),
+        "index": pick("index", root / "index" / snap),
+        "eval_set": pick("eval_set", None),
+        "results": pick("results", root / "results"),
+    }

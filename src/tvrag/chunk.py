@@ -224,19 +224,25 @@ def write_jsonl(chunks: Iterable[Chunk], out: str | Path) -> int:
 
 
 def main(argv: list[str] | None = None) -> None:
-    from tvrag.config import load_config
-    from tvrag.ingest import load_snapshot
+    from tvrag.config import data_paths, load_config
 
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--config", default=None)
-    ap.add_argument("--out", default=None, help="default: <private_root>/chunks/<snapshot_id>.jsonl")
+    ap.add_argument("--out", default=None, help="default: paths.chunks or <private_root>/chunks/<snapshot_id>.jsonl")
     args = ap.parse_args(argv)
-
     cfg = load_config(args.config)
-    root = Path(cfg["paths"]["private_root"])
-    snap = cfg["snapshot_id"]
+    out = Path(args.out) if args.out else data_paths(cfg)["chunks"]
+    docs, n = build_chunks(cfg, out)
+    print(f"docs={docs} chunks={n} -> {out}")
+
+
+def build_chunks(cfg: dict, out: str | Path) -> tuple[int, int]:
+    """Snapshot -> chunk JSONL at `out`. Returns (n_docs, n_chunks)."""
+    from tvrag.config import data_paths
+    from tvrag.ingest import load_snapshot
+
     ccfg = cfg.get("chunk") or {}
-    docs = load_snapshot(root / "snapshots" / snap, (cfg.get("ingest") or {}).get("doc_type_dirs"))
+    docs = load_snapshot(data_paths(cfg)["snapshot"], (cfg.get("ingest") or {}).get("doc_type_dirs"))
     count = bge_m3_counter(cfg["embedding"]["model"])
     chunks = chunk_documents(
         docs,
@@ -244,9 +250,7 @@ def main(argv: list[str] | None = None) -> None:
         max_tokens=ccfg.get("max_tokens", MAX_TOKENS),
         min_tokens=ccfg.get("min_tokens", MIN_TOKENS),
     )
-    out = Path(args.out) if args.out else root / "chunks" / f"{snap}.jsonl"
-    n = write_jsonl(chunks, out)
-    print(f"docs={len(docs)} chunks={n} -> {out}")
+    return len(docs), write_jsonl(chunks, out)
 
 
 if __name__ == "__main__":

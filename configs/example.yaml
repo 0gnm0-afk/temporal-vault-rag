@@ -4,6 +4,9 @@
 snapshot_id: "<wiki-commit-hash>"
 paths:
   private_root: ../private
+  # Optional overrides (defaults derive from private_root and snapshot_id):
+  # snapshot, chunks, index, results
+  eval_set: "<eval-set.jsonl>"  # path to the eval set (keep it under private_root)
 ingest:
   # doc_type -> folder name (any path component) inside the snapshot
   doc_type_dirs:
@@ -22,3 +25,11 @@ bm25:
 retrieve:
   top_k: 5
   rrf_k: 60
+  candidates: 50   # N: top-N from each retriever goes into RRF (mode B)
+eval:
+  doc_prefix: "<vault-area-folder>"  # gold_docs and doc_path are cut after this folder
+  k: 5
+  depth: 20        # MRR is computed over this many retrieved chunks
+  history_k: 10    # 변화 추적: change points must be covered by the top history_k chunks
+  bootstrap: 2000
+  seed: 0

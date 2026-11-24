@@ -18,3 +18,7 @@ models/
 *.lance/
 *.lance
 lancedb/
+
+# Demo: build output is regenerated; evaluation results are public numbers
+demo/build/
+!demo/results/
