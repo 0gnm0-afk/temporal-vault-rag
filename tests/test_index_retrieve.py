@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from tvrag.index import Tokenizer, build_index, is_current, load_index, passage_text
-from tvrag.retrieve import Retriever, rrf
+from tvrag.retrieve import Retriever, recency_weight, rrf, select_distinct_dates
 
 
 class FakeEmbedder:
@@ -87,7 +87,7 @@ def test_modes(index_dir):
     assert b[0].components["bm25_rank"] == 1 and b[0].components["as_of"] == "2025-01-15"
     assert b[0].event_date == "2025-02-01" and b[0].text
     with pytest.raises(NotImplementedError):
-        r.retrieve("x", "C")
+        r.retrieve("x", "D")
     with pytest.raises(ValueError):
         r.retrieve("x", "Z")
 
@@ -102,3 +102,46 @@ def test_bge_m3_index_is_reproducible(tmp_path):
     m1 = build_index(cp, tmp_path / "i1", emb, show_progress=False)
     m2 = build_index(cp, tmp_path / "i2", emb, show_progress=False)
     assert m1["vectors_sha256"] == m2["vectors_sha256"] and m1["embedding_dim"] == 1024
+
+
+def test_recency_weight():
+    assert recency_weight(0, 60) == 1.0
+    assert recency_weight(60, 60) == pytest.approx(0.5)
+    assert recency_weight(120, 60) == pytest.approx(0.25)
+    assert recency_weight(-5, 60) == 1.0          # future content counts as "now"
+    assert recency_weight(500, 0) == 1.0          # 0 = no decay
+    assert recency_weight(None, 60) == pytest.approx(0.5 ** 4)
+
+
+def test_select_distinct_dates():
+    pool = [("a", 0.9, {}), ("b", 0.8, {}), ("c", 0.7, {}), ("d", 0.6, {})]
+    date = {"a": "2025-01-01", "b": "2025-01-01", "c": "2025-02-01", "d": "2025-03-01"}.get
+    assert [h[0] for h in select_distinct_dates(pool, 3, date)] == ["a", "c", "d"]
+    assert [h[0] for h in select_distinct_dates(pool, 4, date)] == ["a", "c", "d", "b"]  # filled
+
+
+def test_mode_c_time_logic(index_dir):
+    _, out = index_dir
+    r = Retriever(load_index(out), FakeEmbedder(), cfg={"candidates": 3, "c": {"half_life_days": 30}})
+    # as-of before the February chunk: it is filtered out even though it matches best
+    hits = r.retrieve("칼로리 한도", "C", k=3, as_of="2025-01-15")
+    assert "logs/2025-02-01 b.md::000" not in [h.chunk_id for h in hits]
+    assert all(h.date_min <= "2025-01-15" for h in hits)
+    assert hits[0].components["qtype"] == "시점 고정" and hits[0].components["cue"] == "argument"
+    # the same as-of read from the question text
+    hits = r.retrieve("1월 15일 기준 칼로리 한도", "C", k=3, reference_date="2025-03-01")
+    assert hits[0].components["as_of"] == "2025-01-15"
+    assert "logs/2025-02-01 b.md::000" not in [h.chunk_id for h in hits]
+    # post-filter gives the same set here
+    r.as_of_filter = "post"
+    assert {h.chunk_id for h in r.retrieve("칼로리 한도", "C", 3, as_of="2025-01-15")} == {h.chunk_id for h in hits}
+    # current: newest content first when relevance is close
+    cur = r.retrieve("지금 기록", "C", k=3, reference_date="2025-03-01")
+    assert cur[0].components["qtype"] == "현재 값"
+    assert cur[0].date_max == max(h.date_max for h in cur)
+    # change: one chunk per date, in time order
+    ch = r.retrieve("어떻게 바뀌었어", "C", k=3, reference_date="2025-03-01")
+    assert [h.date_min for h in ch] == sorted(h.date_min for h in ch)
+    # labels override reading
+    lab = r.retrieve("아무 질문", "C", k=2, qtype="현재 값", reference_date="2025-03-01")
+    assert lab[0].components["qtype"] == "현재 값" and lab[0].components["cue"] == "label"

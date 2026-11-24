@@ -21,6 +21,7 @@ import numpy as np
 
 TABLE = "chunks"
 EMBED_TEMPLATE_VERSION = 1
+METADATA_VERSION = 2  # 2: date_min/date_max columns
 
 # BM25 keeps content morphemes only: nouns (NNG general, NNP proper, NR numerals),
 # verb/adjective stems (VV, VA), roots (XR), and foreign/hanja/number tokens
@@ -143,6 +144,8 @@ def build_index(
             ("event_date", pa.string()),
             ("date_source", pa.string()),
             ("doc_date", pa.string()),
+            ("date_min", pa.string()),
+            ("date_max", pa.string()),
             ("doc_type", pa.string()),
             ("n_tokens", pa.int32()),
             ("vector", pa.list_(pa.float32(), dim)),
@@ -158,6 +161,9 @@ def build_index(
             "event_date": c.get("event_date"),
             "date_source": c.get("date_source"),
             "doc_date": c.get("doc_date"),
+            # chunks written before S5 have no range: fall back to the event date
+            "date_min": c.get("date_min") or c.get("event_date"),
+            "date_max": c.get("date_max") or c.get("event_date"),
             "doc_type": c.get("doc_type"),
             "n_tokens": c.get("n_tokens", 0),
             "vector": v.tolist(),
@@ -180,6 +186,7 @@ def build_index(
         "embedding_dim": int(dim),
         "normalize": bool(emb_cfg.get("normalize", True)),
         "embed_template_version": EMBED_TEMPLATE_VERSION,
+        "metadata_version": METADATA_VERSION,
         "vectors_sha256": hashlib.sha256(vectors.tobytes()).hexdigest(),
         "bm25_tags": sorted(BM25_TAGS),
         "kiwipiepy_version": kiwipiepy.__version__,
@@ -202,6 +209,7 @@ def is_current(index_dir: str | Path, chunks_path: str | Path, model_name: str) 
         and m.get("chunks_sha256") == _sha256_file(Path(chunks_path))
         and m.get("embedding_model") == model_name
         and m.get("embed_template_version") == EMBED_TEMPLATE_VERSION
+        and m.get("metadata_version") == METADATA_VERSION
         and m.get("bm25_tags") == sorted(BM25_TAGS)
     )
 

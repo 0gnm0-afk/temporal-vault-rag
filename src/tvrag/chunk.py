@@ -61,6 +61,10 @@ class Chunk:
     links: list[str]
     headings: list[str]  # titles of all sections merged into this chunk
     n_tokens: int
+    # content date range from date mentions in the text (see tvrag.dates); added in S5
+    date_min: str | None = None
+    date_max: str | None = None
+    n_date_mentions: int = 0
 
 
 def heading_date(title: str) -> str | None:
@@ -202,7 +206,20 @@ def chunk_document(
 
 
 def chunk_documents(docs: Iterable[Document], count: TokenCounter, **kw) -> list[Chunk]:
-    return [c for d in docs for c in chunk_document(d, count, **kw)]
+    return add_date_ranges([c for d in docs for c in chunk_document(d, count, **kw)])
+
+
+def add_date_ranges(chunks: list[Chunk], ceiling: str | None = None) -> list[Chunk]:
+    """Fill date_min/date_max. `ceiling` defaults to the latest record date in the corpus
+    (date heading or frontmatter date): later mentions are goals or plans."""
+    from tvrag.dates import RECORD_DATE_SOURCES, date_range
+
+    if ceiling is None:
+        record = [c.event_date for c in chunks if c.event_date and c.date_source in RECORD_DATE_SOURCES]
+        ceiling = max(record) if record else None
+    for c in chunks:
+        c.date_min, c.date_max, c.n_date_mentions = date_range(c.text, c.event_date, c.date_source, ceiling)
+    return chunks
 
 
 def bge_m3_counter(model_name: str = "BAAI/bge-m3") -> TokenCounter:

@@ -158,10 +158,14 @@ def check_gold(questions: list[dict], rows: list[dict], prefix: str | None) -> l
 
 
 # ---------------------------------------------------------------- per question
-def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: str | None, k: int, history_k: int) -> dict:
-    """`ranked`: retrieved chunk rows in rank order (depth >= k). `all_rows`: every chunk."""
+def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: str | None, k: int, history_k: int,
+                   top: list[dict] | None = None, hist: list[dict] | None = None) -> dict:
+    """`ranked`: retrieved chunk rows in rank order (depth) for MRR. `top` / `hist`: the
+    lists retrieved with k / history_k (default: prefixes of `ranked`; a mode whose
+    output for a smaller k is not a prefix, such as time-sorted mode C, passes them)."""
     gold = gold_of(q, prefix)
-    top = ranked[:k]
+    top = ranked[:k] if top is None else top[:k]
+    hist = ranked[:history_k] if hist is None else hist[:history_k]
     res: dict = {"id": q["id"], "type": q["type"]}
 
     doc_hits = [chunk_doc(r, prefix) in gold.docs for r in ranked]
@@ -179,6 +183,7 @@ def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: st
     first_doc = next((i + 1 for i, h in enumerate(doc_hits) if h), None)
     first_sec = next((i + 1 for i, h in enumerate(sec_hits) if h), None)
     res["first_doc_rank"], res["first_section_rank"] = first_doc, first_sec
+    res["top_k"] = [r["chunk_id"] for r in top]
 
     if gold.docs:
         found = {chunk_doc(r, prefix) for r in top} & gold.docs
@@ -186,7 +191,7 @@ def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: st
         res["mrr_doc"] = 1 / first_doc if first_doc else 0.0
         res["missed_docs"] = sorted(gold.docs - found)
     if gold.sections:
-        covered = {i for hits in sec_hits[:k] for i in hits}
+        covered = {i for r in top for i in section_matches(r, prefix, gold)}
         res["recall_section"] = len(covered) / len(gold.sections)
         res["mrr_section"] = 1 / first_sec if first_sec else 0.0
 
@@ -212,7 +217,7 @@ def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: st
 
     if q["type"] == "변화 추적" and q.get("change_points"):
         want = sorted({str(c["date"])[:10] for c in q["change_points"]})
-        hk = ranked[:history_k]
+        hk = hist
         ev = {r.get("event_date") for r in hk}
         mention = set().union(*(dates_in_text(r.get("text", "")) for r in hk)) if hk else set()
         cov = [d for d in want if d in ev or d in mention]
@@ -288,16 +293,96 @@ def run_eval(
     n_boot: int = 2000,
     seed: int = 0,
 ) -> dict[str, dict]:
-    """`search(question_dict, mode, depth) -> [chunk_id, ...]`. Returns {mode: {summary, questions}}."""
+    """`search(question_dict, mode, n) -> [chunk_id, ...]` or `([chunk_id, ...], info)`.
+    Each cutoff (depth for MRR, k, history_k) is retrieved separately, so modes whose
+    top-k is not a prefix of their top-depth are scored on what they return for k.
+    Returns {mode: {summary, questions}}."""
     all_rows = list(rows_by_id.values())
     out = {}
     for mode in modes:
         per_q = []
         for q in questions:
-            ids = search(q, mode, max(depth, k, history_k))
-            per_q.append(score_question(q, [rows_by_id[c] for c in ids], all_rows, prefix, k, history_k))
+            lists, info = {}, None
+            for n in sorted({depth, k, history_k}, reverse=True):
+                got = search(q, mode, n)
+                ids, inf = got if isinstance(got, tuple) else (got, None)
+                lists[n] = [rows_by_id[c] for c in ids]
+                info = info or inf
+            res = score_question(q, lists[depth], all_rows, prefix, k, history_k, lists[k], lists[history_k])
+            if info:
+                res["intent"] = info
+            per_q.append(res)
         out[mode] = {"summary": summarize(per_q, n_boot, seed), "questions": per_q}
     return out
+
+
+MODE_LABELS = {"CL": "C(정답 라벨)"}
+
+COMPARE_ROWS = (
+    ("recall_doc", None), ("recall_section", None), ("mrr_doc", None),
+    ("contamination", "시점 고정"), ("recency", "현재 값"), ("recency_strict", "현재 값"),
+    ("history", "변화 추적"), ("history_strict", "변화 추적"),
+)
+
+
+def comparison_table(summaries: dict[str, dict], k: int) -> str:
+    """Modes side by side: rows = (group, metric), cells = mean [CI]."""
+    labels = dict(METRICS)
+    modes = list(summaries)
+    head = "| 그룹 | 지표 | " + " | ".join(MODE_LABELS.get(m, m) for m in modes) + " |"
+    lines = [head, "|---|---|" + "---|" * len(modes)]
+    groups = ["전체", *TYPES]
+    for g in groups:
+        for key, only in COMPARE_ROWS:
+            if only and g not in (only, "전체"):
+                continue
+            cells = [summaries[m].get(g, {}).get(key) for m in modes]
+            if not any(cells):
+                continue
+            label = labels[key].replace("@k", f"@{k}")
+            lines.append(f"| {g} | {label} | " + " | ".join(_fmt(c) for c in cells) + " |")
+    return "\n".join(lines)
+
+
+def question_reading(questions: list[dict], default_ref: str | None = None, tol_days: int = 7) -> dict:
+    """Compare tvrag.query's reading with the eval labels (labels are used for scoring only).
+    Returns accuracy numbers and per-id flags (no question text)."""
+    from tvrag.query import parse_question
+
+    per, conf = [], {}
+    for q in questions:
+        ref = q.get("reference_date") or default_ref or dt.date.today().isoformat()
+        it = parse_question(q["question"], ref)
+        row = {"id": q["id"], "label": q["type"], "pred": it.qtype, "type_ok": it.qtype == q["type"]}
+        if q["type"] == "시점 고정":
+            row["as_of_label"], row["as_of_pred"] = q.get("as_of"), it.as_of
+            if it.as_of and q.get("as_of"):
+                diff = abs((dt.date.fromisoformat(it.as_of) - dt.date.fromisoformat(q["as_of"][:10])).days)
+                row["as_of_diff_days"] = diff
+            row["as_of_exact"] = it.as_of == (q.get("as_of") or "")[:10]
+            row["as_of_close"] = row.get("as_of_diff_days") is not None and row["as_of_diff_days"] <= tol_days
+        per.append(row)
+        conf.setdefault(q["type"], {}).setdefault(it.qtype, 0)
+        conf[q["type"]][it.qtype] += 1
+    asof = [r for r in per if r["label"] == "시점 고정"]
+    return {
+        "type_accuracy": sum(r["type_ok"] for r in per) / len(per) if per else None,
+        "as_of_exact": sum(r["as_of_exact"] for r in asof) / len(asof) if asof else None,
+        "as_of_within_days": tol_days,
+        "as_of_close": sum(r["as_of_close"] for r in asof) / len(asof) if asof else None,
+        "confusion": conf,
+        "questions": per,
+    }
+
+
+def reading_table(rd: dict) -> str:
+    lines = [f"질문 유형 정확도 {rd['type_accuracy']:.2f}, 시점 고정의 as_of 일치 {rd['as_of_exact']:.2f} "
+             f"(±{rd['as_of_within_days']}일 이내 {rd['as_of_close']:.2f}).", "",
+             "| 라벨 \\ 해석 | " + " | ".join(TYPES) + " |", "|---|" + "---|" * len(TYPES)]
+    for t in TYPES:
+        row = rd["confusion"].get(t, {})
+        lines.append(f"| {t} | " + " | ".join(str(row.get(p, 0)) for p in TYPES) + " |")
+    return "\n".join(lines)
 
 
 def _sha256(path: Path) -> str:
@@ -325,8 +410,19 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
     for msg in gold_problems:
         print(f"[eval] warning: {msg}")
 
-    def search(q: dict, mode: str, n: int) -> list[str]:
-        return [h.chunk_id for h in retriever.retrieve(q["question"], mode, n, q.get("as_of"))]
+    def search(q: dict, mode: str, n: int):
+        ref = q.get("reference_date")
+        if mode == "C":  # reads type and as-of from the question text itself
+            hits = retriever.retrieve(q["question"], "C", n, reference_date=ref)
+        elif mode == "CL":  # same mode C, labels instead of question reading
+            hits = retriever.retrieve(q["question"], "C", n, q.get("as_of"), qtype=q["type"], reference_date=ref)
+        else:
+            hits = retriever.retrieve(q["question"], mode, n, q.get("as_of"))
+        info = None
+        if mode in ("C", "CL") and hits:
+            c = hits[0].components
+            info = {"qtype": c.get("qtype"), "as_of": c.get("as_of"), "cue": c.get("cue")}
+        return [h.chunk_id for h in hits], info
 
     results = run_eval(questions, search, rows_by_id, modes, prefix, k, depth, history_k, n_boot, seed)
 
@@ -346,6 +442,8 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
         "retrieve": cfg.get("retrieve") or {},
         "gold_problems": gold_problems,
     }
+    if any(m in ("C", "CL") for m in modes):
+        meta["question_reading"] = question_reading(questions)
     out_dir = Path(out_dir) if out_dir else paths["results"]
     out_dir.mkdir(parents=True, exist_ok=True)
     written = []
@@ -357,7 +455,11 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
             markdown_table({mode: res["summary"]}, meta) + "\n", encoding="utf-8", newline="\n")
         written.append(p)
     tag = "".join(modes)
-    table = markdown_table({m: r["summary"] for m, r in results.items()}, meta)
+    table = markdown_table({MODE_LABELS.get(m, m): r["summary"] for m, r in results.items()}, meta)
+    if len(results) > 1:
+        table += "\n## 모드 비교\n\n" + comparison_table({m: r["summary"] for m, r in results.items()}, k) + "\n"
+    if "question_reading" in meta:
+        table += "\n## 질문 해석 (모드 C)\n\n" + reading_table(meta["question_reading"]) + "\n"
     (out_dir / f"{date}_{tag}.md").write_text(table + "\n", encoding="utf-8", newline="\n")
     return {"meta": meta, "results": results, "table": table, "out_dir": str(out_dir)}
 

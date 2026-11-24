@@ -24,6 +24,11 @@ retrieve:
   top_k: 5
   rrf_k: 60
   candidates: 50   # N: top-N from each retriever goes into RRF (mode B)
+  c:               # mode C (S5); values fixed on the demo set and dev questions
+    as_of_filter: pre      # pre | post: drop date_min > as_of before or after fusion
+    half_life_days: 60     # 현재 값: score * 0.5 ** (age / half_life), age = now - date_max
+    change_pool: 30        # 변화 추적: B candidates scanned for distinct dates
+    reference_date: "2025-06-30"  # default 'now' (eval questions carry their own)
 eval:
   doc_prefix: ""   # gold_docs and chunk doc_path share the vault root here
   k: 5
