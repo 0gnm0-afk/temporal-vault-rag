@@ -1,4 +1,4 @@
-"""One command: chunk -> index -> evaluate.
+"""One command: chunk -> index -> fact table -> evaluate.
 
   python -m tvrag.run --config configs/demo.yaml            # demo vault, modes A B
   python -m tvrag.run --config configs/local.yaml --eval <eval.jsonl>
@@ -6,7 +6,8 @@
 Chunks are rebuilt when the chunk file is missing or --rechunk is given (the demo config
 sets run.rechunk so edits to the demo vault are always picked up). The index is rebuilt
 when its manifest does not match the chunk file, model, or tokenizer settings, or with
---reindex.
+--reindex. The fact table (mode D) is rebuilt from its observation file on every run
+(cheap); without an observation file mode D equals C.
 """
 from __future__ import annotations
 
@@ -46,6 +47,10 @@ def main(argv: list[str] | None = None) -> None:
         print(f"[index] built chunks={m['n_chunks']} vectors_sha256={m['vectors_sha256'][:12]} -> {paths['index']}")
     else:
         print(f"[index] reuse {paths['index']}")
+
+    from tvrag.facts import build_from_config
+
+    build_from_config(cfg)
 
     if args.no_eval:
         return

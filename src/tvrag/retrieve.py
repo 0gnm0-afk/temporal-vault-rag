@@ -8,7 +8,11 @@ Mode C = B plus time, by question type (read by tvrag.query):
   시점 고정  drop chunks with date_min > as_of (pre-filter in both retrievers by default)
   현재 값    B candidates re-ranked by score * 0.5 ** (age / half_life), age = now - date_max
   변화 추적  wider B pool, one chunk per distinct date_max in relevance order, sorted by time
-Mode D is a placeholder until S6.
+Mode D = C plus the fact table (tvrag.facts): the same question reading picks fact rows
+(value valid at as_of / now, or the history); their evidence chunks go first in the
+ranked list, the mode C list fills the rest. The fact answer itself (value, validity,
+condition, nature, evidence) rides on the first hit as components["facts"]. Without a
+fact table, or when no attribute is named, or for 일반 questions, D = C.
 
 Usage: python -m tvrag.retrieve --config configs/local.yaml -m B -k 5 "question"
 """
@@ -73,6 +77,7 @@ class Retriever:
         self.change_pool = int(c.get("change_pool", 30))
         self.reference_date = c.get("reference_date")  # default "now" for mode C
         self._qvec: dict[str, np.ndarray] = {}
+        self.facts = None  # tvrag.facts.FactStore for mode D
 
     @classmethod
     def from_config(cls, cfg: dict, index_dir: str | Path | None = None) -> "Retriever":
@@ -80,7 +85,11 @@ class Retriever:
 
         e = cfg["embedding"]
         emb = Embedder(e["model"], e.get("device", "cpu"), e.get("batch_size", 8), e.get("normalize", True))
-        return cls(load_index(index_dir or data_paths(cfg)["index"]), emb, cfg=cfg.get("retrieve") or {})
+        r = cls(load_index(index_dir or data_paths(cfg)["index"]), emb, cfg=cfg.get("retrieve") or {})
+        from tvrag.facts import FactStore
+
+        r.facts = FactStore.from_config(cfg, r.index.rows)
+        return r
 
     # --- single retrievers -------------------------------------------------
     def _encode(self, question: str) -> np.ndarray:
@@ -156,6 +165,49 @@ class Retriever:
 
         return sorted(picked, key=when)
 
+    def read_intent(self, question: str, as_of: str | None = None, qtype: str | None = None,
+                    reference_date: str | None = None):
+        """(Intent, reference date). `qtype` (a label) replaces the reading; an explicit
+        `as_of` overrides the parsed one."""
+        from tvrag.query import AS_OF, Intent, parse_question
+
+        ref = str(reference_date or self.reference_date or dt.date.today().isoformat())[:10]
+        intent = parse_question(question, ref)
+        if qtype:
+            intent = Intent(qtype, as_of if qtype == AS_OF else None, "label")
+        elif as_of:
+            intent = Intent(AS_OF, as_of, "argument")
+        return intent, ref
+
+    def mode_c(self, question: str, k: int, intent, ref: str) -> list[tuple[str, float, dict]]:
+        from tvrag.query import AS_OF, CHANGE, CURRENT
+
+        if intent.qtype == AS_OF and intent.as_of:
+            return self.c_as_of(question, k, intent.as_of)
+        if intent.qtype == CURRENT:
+            return self.c_current(question, k, ref)
+        if intent.qtype == CHANGE:
+            return self.c_change(question, k)
+        return self.fused(question, max(self.candidates, k))[:k]
+
+    def fact_answer(self, question: str, intent, ref: str):
+        from tvrag.query import AS_OF
+
+        if self.facts is None:
+            return None
+        return self.facts.answer(question, intent.qtype, intent.as_of if intent.qtype == AS_OF else ref)
+
+    def mode_d(self, question: str, k: int, intent, ref: str, c_scored: list[tuple[str, float, dict]]):
+        """Evidence chunks of the chosen fact rows first, then mode C's list."""
+        ans = self.fact_answer(question, intent, ref)
+        if ans is None:
+            return c_scored, {"facts": [], "fact_attrs": []}
+        ev = [c for c in self.facts.evidence_ids(ans, k) if c in self.index.pos]
+        rows_of = {c: [f.id for f in ans.rows if c in f.evidence] for c in ev}
+        out = [(c, 1.0 + (len(ev) - i), {"fact_rows": rows_of[c]}) for i, c in enumerate(ev)]
+        out += [h for h in c_scored if h[0] not in rows_of]
+        return out[:k], {"facts": ans.info(), "fact_attrs": ans.attrs}
+
     # --- modes ---------------------------------------------------------------
     def retrieve(self, question: str, mode: str = "B", k: int = 5, as_of: str | None = None, *,
                  qtype: str | None = None, reference_date: str | None = None) -> list[Hit]:
@@ -164,29 +216,16 @@ class Retriever:
         (default: retrieve.c.reference_date, else today)."""
         mode = mode.upper()
         intent = None
+        extra: dict = {}
         if mode == "A":
             scored = [(cid, s, {"vec_rank": r}) for r, (cid, s) in enumerate(self.vector_search(question, k), 1)]
         elif mode == "B":
             scored = self.fused(question, max(self.candidates, k))[:k]
-        elif mode == "C":
-            from tvrag.query import AS_OF, CHANGE, CURRENT, Intent, parse_question
-
-            ref = str(reference_date or self.reference_date or dt.date.today().isoformat())[:10]
-            intent = parse_question(question, ref)
-            if qtype:
-                intent = Intent(qtype, as_of if qtype == AS_OF else None, "label")
-            elif as_of:
-                intent = Intent(AS_OF, as_of, "argument")
-            if intent.qtype == AS_OF and intent.as_of:
-                scored = self.c_as_of(question, k, intent.as_of)
-            elif intent.qtype == CURRENT:
-                scored = self.c_current(question, k, ref)
-            elif intent.qtype == CHANGE:
-                scored = self.c_change(question, k)
-            else:
-                scored = self.fused(question, max(self.candidates, k))[:k]
-        elif mode == "D":
-            raise NotImplementedError("mode D is implemented in S6")
+        elif mode in ("C", "D"):
+            intent, ref = self.read_intent(question, as_of, qtype, reference_date)
+            scored = self.mode_c(question, k, intent, ref)
+            if mode == "D":
+                scored, extra = self.mode_d(question, k, intent, ref, scored)
         else:
             raise ValueError(f"unknown mode {mode!r}; expected one of {MODES}")
         hits = []
@@ -196,6 +235,8 @@ class Retriever:
                 comp = {**comp, "qtype": intent.qtype, "as_of": intent.as_of, "cue": intent.cue}
             elif as_of:
                 comp = {**comp, "as_of": as_of}
+            if rank == 1 and extra:
+                comp = {**comp, **extra}
             hits.append(
                 Hit(
                     chunk_id=cid,
@@ -273,7 +314,13 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--chars", type=int, default=120, help="text preview length")
     args = ap.parse_args(argv)
     r = Retriever.from_config(load_config(args.config))
-    for h in r.retrieve(" ".join(args.question), args.mode, args.k, args.as_of, reference_date=args.ref):
+    question = " ".join(args.question)
+    if args.mode.upper() == "D" and r.facts is not None:
+        intent, ref = r.read_intent(question, args.as_of, None, args.ref)
+        ans = r.fact_answer(question, intent, ref)
+        print(r.facts.format(ans) if ans else f"[D] 사실표 답 없음 ({intent.qtype}) -> C 결과만")
+        print("[C 근거 청크]")
+    for h in r.retrieve(question, args.mode, args.k, args.as_of, reference_date=args.ref):
         preview = " ".join(h.text.split())[: args.chars]
         print(f"[{h.mode}] #{h.rank} {h.score:.4f} {h.event_date} [{h.date_min}..{h.date_max}] {h.doc_path} :: {' > '.join(h.heading_path)} {h.components}")
         print(f"    {preview}")

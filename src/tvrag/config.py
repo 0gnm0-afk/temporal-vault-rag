@@ -54,7 +54,7 @@ load_env()
 def data_paths(cfg: dict) -> dict[str, Path | None]:
     """Data locations. Explicit `paths.<name>` wins; otherwise derived from
     `paths.private_root` and `snapshot_id` (snapshots/<id>, chunks/<id>.jsonl,
-    index/<id>, results)."""
+    index/<id>, results, facts/<id>.obs.jsonl, facts/<id>.jsonl)."""
     p = cfg.get("paths") or {}
     root = Path(p.get("private_root") or REPO_ROOT)
     snap = str(cfg.get("snapshot_id") or "snapshot")
@@ -68,4 +68,7 @@ def data_paths(cfg: dict) -> dict[str, Path | None]:
         "index": pick("index", root / "index" / snap),
         "eval_set": pick("eval_set", None),
         "results": pick("results", root / "results"),
+        # mode D: curated observations (input) and the built fact table (output, + .md)
+        "facts_source": pick("facts_source", root / "facts" / f"{snap}.obs.jsonl"),
+        "facts": pick("facts", root / "facts" / f"{snap}.jsonl"),
     }

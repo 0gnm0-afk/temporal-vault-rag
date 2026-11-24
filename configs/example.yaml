@@ -7,6 +7,8 @@ paths:
   # Optional overrides (defaults derive from private_root and snapshot_id):
   # snapshot, chunks, index, results
   eval_set: "<eval-set.jsonl>"  # path to the eval set (keep it under private_root)
+  # facts_source / facts: mode D observation file and built table
+  # (default: <private_root>/facts/<snapshot_id>.obs.jsonl and .jsonl)
 ingest:
   # doc_type -> folder name (any path component) inside the snapshot
   doc_type_dirs:
@@ -38,3 +40,7 @@ eval:
   history_k: 10    # 변화 추적: change points must be covered by the top history_k chunks
   bootstrap: 2000
   seed: 0
+facts:            # mode D (fact table); see tvrag.facts
+  default_series: {}       # attribute -> condition series that answers 현재 값, e.g. {체중: 아침 공복}
+  change_series: {}        # attribute -> extra series chained into 시점 고정 / 변화 추적
+  max_evidence_per_row: 2  # evidence chunks per answer row in the ranked list

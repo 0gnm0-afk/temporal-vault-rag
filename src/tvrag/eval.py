@@ -27,6 +27,13 @@ Metric definitions (all per question, then averaged; CIs by bootstrap over quest
                     history, but text dates are read with tvrag.dates, so year-less "m/d"
                     and "m월 d일" mentions count too. The vault writes many change dates
                     only as "m/d", which `history` cannot credit.
+  value_acc         (mode D only, S6) automatic number match of D's fact answer against
+                    the eval set: 시점 고정 / 현재 값 = share of D's answer rows whose
+                    number appears in `answer`; 변화 추적 = share of numeric change_points
+                    matched by a D row within ±3 days with the same number. Questions
+                    whose gold has no number are left out; no D answer scores 0
+                    (tvrag.facts.value_scores).
+  value_answered    (mode D) share of those numeric questions D answered from the table
 
 Path matching: gold_docs may be written relative to another root than chunk doc_path.
 Both sides are cut after `eval.doc_prefix` (from the config, so no vault name is hard-
@@ -63,6 +70,8 @@ METRICS = (
     ("history", "이력 완결도"),
     ("history_strict", "이력(event_date만)"),
     ("history_anyfmt", "이력(m/d 포함, 사후)"),
+    ("value_acc", "값 정확도(D)"),
+    ("value_answered", "D 응답률"),
 )
 
 
@@ -322,6 +331,10 @@ def run_eval(
                 lists[n] = [rows_by_id[c] for c in ids]
                 info = info or inf
             res = score_question(q, lists[depth], all_rows, prefix, k, history_k, lists[k], lists[history_k])
+            if info and "facts" in info:
+                from tvrag.facts import value_scores
+
+                res.update(value_scores(q, info["facts"]))
             if info:
                 res["intent"] = info
             per_q.append(res)
@@ -329,12 +342,14 @@ def run_eval(
     return out
 
 
-MODE_LABELS = {"CL": "C(정답 라벨)"}
+MODE_LABELS = {"CL": "C(정답 라벨)", "DL": "D(정답 라벨)"}
+LABEL_MODES = {"CL": "C", "DL": "D"}  # same mode, eval labels (type, as_of) instead of question reading
 
 COMPARE_ROWS = (
     ("recall_doc", None), ("recall_section", None), ("mrr_doc", None),
     ("contamination", "시점 고정"), ("recency", "현재 값"), ("recency_strict", "현재 값"),
     ("history", "변화 추적"), ("history_strict", "변화 추적"), ("history_anyfmt", "변화 추적"),
+    ("value_acc", None), ("value_answered", None),
 )
 
 
@@ -425,16 +440,20 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
 
     def search(q: dict, mode: str, n: int):
         ref = q.get("reference_date")
-        if mode == "C":  # reads type and as-of from the question text itself
-            hits = retriever.retrieve(q["question"], "C", n, reference_date=ref)
-        elif mode == "CL":  # same mode C, labels instead of question reading
-            hits = retriever.retrieve(q["question"], "C", n, q.get("as_of"), qtype=q["type"], reference_date=ref)
+        if mode in ("C", "D"):  # reads type and as-of from the question text itself
+            hits = retriever.retrieve(q["question"], mode, n, reference_date=ref)
+        elif mode in LABEL_MODES:  # same mode, labels instead of question reading
+            hits = retriever.retrieve(q["question"], LABEL_MODES[mode], n, q.get("as_of"), qtype=q["type"],
+                                      reference_date=ref)
         else:
             hits = retriever.retrieve(q["question"], mode, n, q.get("as_of"))
         info = None
-        if mode in ("C", "CL") and hits:
+        if mode in ("C", "CL", "D", "DL") and hits:
             c = hits[0].components
             info = {"qtype": c.get("qtype"), "as_of": c.get("as_of"), "cue": c.get("cue")}
+            if mode in ("D", "DL"):
+                info["facts"] = c.get("facts") or []
+                info["fact_attrs"] = c.get("fact_attrs") or []
         return [h.chunk_id for h in hits], info
 
     results = run_eval(questions, search, rows_by_id, modes, prefix, k, depth, history_k, n_boot, seed)
@@ -455,7 +474,11 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
         "retrieve": cfg.get("retrieve") or {},
         "gold_problems": gold_problems,
     }
-    if any(m in ("C", "CL") for m in modes):
+    if any(m in ("D", "DL") for m in modes):
+        meta["facts"] = {"table": str(paths.get("facts")), "rows": len(retriever.facts.facts) if retriever.facts else 0,
+                         "sha256": _sha256(Path(paths["facts"])) if retriever.facts else None,
+                         "config": cfg.get("facts") or {}}
+    if any(m in ("C", "CL", "D", "DL") for m in modes):
         meta["question_reading"] = question_reading(questions)
     out_dir = Path(out_dir) if out_dir else paths["results"]
     out_dir.mkdir(parents=True, exist_ok=True)

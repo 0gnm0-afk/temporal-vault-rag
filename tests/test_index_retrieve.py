@@ -86,8 +86,10 @@ def test_modes(index_dir):
     assert b[0].chunk_id == "logs/2025-02-01 b.md::000"  # the only BM25 match
     assert b[0].components["bm25_rank"] == 1 and b[0].components["as_of"] == "2025-01-15"
     assert b[0].event_date == "2025-02-01" and b[0].text
-    with pytest.raises(NotImplementedError):
-        r.retrieve("x", "D")
+    # no fact table: D falls back to C
+    d = r.retrieve("칼로리 한도", "D", k=2, reference_date="2025-03-01")
+    c = r.retrieve("칼로리 한도", "C", k=2, reference_date="2025-03-01")
+    assert [h.chunk_id for h in d] == [h.chunk_id for h in c] and d[0].mode == "D"
     with pytest.raises(ValueError):
         r.retrieve("x", "Z")
 

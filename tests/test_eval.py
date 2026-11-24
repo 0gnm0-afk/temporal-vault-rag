@@ -126,3 +126,19 @@ def test_check_gold_and_run_eval():
     out = run_eval(qs, lambda q, m, n: ["c2", "c1"], rows, ["A"], prefix="x", k=5, n_boot=100)
     s = out["A"]["summary"]["전체"]
     assert s["mrr_doc"]["mean"] == 0.5 and s["recall_doc"]["mean"] == 1.0
+
+
+def test_run_eval_scores_fact_values_for_mode_d():
+    rows = {r["chunk_id"]: r for r in [row("c1", "x/a.md", "2025-01-01"), row("c2", "x/b.md", "2025-02-01")]}
+    qs = [{"id": "1", "type": "현재 값", "question": "?", "gold_docs": ["x/b.md"], "answer": "79.0kg"},
+          {"id": "2", "type": "현재 값", "question": "?", "gold_docs": ["x/b.md"], "answer": "78.0kg"}]
+    fact = [{"value": 79.0, "unit": "kg", "numeric": True, "valid_from": "2025-02-01"}]
+
+    def search(q, mode, n):
+        info = {"qtype": "현재 값", "facts": fact} if mode == "D" else {"qtype": "현재 값"}
+        return ["c2", "c1"], info
+
+    out = run_eval(qs, search, rows, ["C", "D"], k=5, n_boot=100)
+    assert out["D"]["summary"]["전체"]["value_acc"]["mean"] == 0.5
+    assert out["D"]["summary"]["전체"]["value_answered"]["mean"] == 1.0
+    assert "value_acc" not in out["C"]["summary"]["전체"]
