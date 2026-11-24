@@ -302,3 +302,7 @@ python -m tvrag.run --config configs/demo.yaml --modes A B C CL D DL
 - **한 질문 검색:** `python -m tvrag.retrieve --config configs/demo.yaml -m D -k 5 --ref 2025-06-30 "지금 하루 칼로리 한도는?"`
 - **설계 판단:** `docs/design.md`
 - **모듈별 역할:** `CLAUDE.md`
+
+## 라이선스
+
+열람 전용이다(All rights reserved). 코드·문서·데모 데이터는 보는 것만 허용하고, 허락 없는 복제·수정·배포·재사용은 허용하지 않는다. 자세한 문구는 [LICENSE](LICENSE).

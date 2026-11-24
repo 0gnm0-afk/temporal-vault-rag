@@ -37,4 +37,4 @@
 - 실제 볼트의 경로·폴더명·노트 제목·본문 인용을 코드, 테스트, 주석, 커밋 메시지, 예시 설정에 쓰지 않는다. 테스트 문자열은 가상의 것을 쓴다.
 - 실제 경로는 `configs/local.yaml`(gitignore)에만 쓴다. `configs/example.yaml`은 자리표시자만.
 - 유출 방지 훅 `.githooks/pre-commit`: 스테이징된 파일 경로와 추가된 줄에 차단 목록 문자열이 있으면 커밋을 막는다. 차단 목록 경로는 `git config tvrag.denylist`로 지정하며(비공개 폴더의 `leak-denylist.txt`), 지정이 없거나 파일이 없으면 커밋을 막는다. 새 스냅샷을 만들면 `python scripts/build_denylist.py <스냅샷 폴더>`로 다시 만든다. 클론 후 `git config core.hooksPath .githooks`와 `git config tvrag.denylist <경로>` 필요.
-- 볼트 원본은 읽기만 한다. push는 사용자가 결정한다.
+- 볼트 원본은 읽기만 한다. 원격은 GitHub `0gnm0-afk/temporal-vault-rag`(공개, 열람 전용 LICENSE). push는 사용자가 요청할 때만 한다. 커밋 작성자는 GitHub noreply 주소를 쓴다(`git config user.email`).
