@@ -23,6 +23,10 @@ Metric definitions (all per question, then averaged; CIs by bootstrap over quest
                     topic note that writes "on 2025-03-17 the limit went to X" is evidence
                     too, but its own event_date is the note's date, so event_date alone
                     would undercount it. history_strict (event_date only) is reported too.
+  history_anyfmt    (added after the first private run in S5, marked 사후 in tables) as
+                    history, but text dates are read with tvrag.dates, so year-less "m/d"
+                    and "m월 d일" mentions count too. The vault writes many change dates
+                    only as "m/d", which `history` cannot credit.
 
 Path matching: gold_docs may be written relative to another root than chunk doc_path.
 Both sides are cut after `eval.doc_prefix` (from the config, so no vault name is hard-
@@ -43,6 +47,8 @@ from typing import Callable
 
 import numpy as np
 
+from tvrag.dates import mentioned_dates
+
 TYPES = ("일반", "시점 고정", "현재 값", "변화 추적")
 REQUIRED = ("id", "type", "question", "gold_docs")
 
@@ -56,6 +62,7 @@ METRICS = (
     ("recency_strict", "최신성(정답 청크)"),
     ("history", "이력 완결도"),
     ("history_strict", "이력(event_date만)"),
+    ("history_anyfmt", "이력(m/d 포함, 사후)"),
 )
 
 
@@ -224,6 +231,12 @@ def score_question(q: dict, ranked: list[dict], all_rows: list[dict], prefix: st
         res["history"] = len(cov) / len(want)
         res["history_strict"] = len([d for d in want if d in ev]) / len(want)
         res["history_missing"] = [d for d in want if d not in cov]
+        anyfmt = set()
+        for r in hk:
+            ref = dt.date.fromisoformat(r["event_date"]) if r.get("event_date") else None
+            anyfmt |= {d.isoformat() for d in mentioned_dates(r.get("text", ""), ref)}
+        res["history_anyfmt"] = len([d for d in want if d in ev or d in anyfmt]) / len(want)
+        res["hist_ids"] = [r["chunk_id"] for r in hk]
     return res
 
 
@@ -321,7 +334,7 @@ MODE_LABELS = {"CL": "C(정답 라벨)"}
 COMPARE_ROWS = (
     ("recall_doc", None), ("recall_section", None), ("mrr_doc", None),
     ("contamination", "시점 고정"), ("recency", "현재 값"), ("recency_strict", "현재 값"),
-    ("history", "변화 추적"), ("history_strict", "변화 추적"),
+    ("history", "변화 추적"), ("history_strict", "변화 추적"), ("history_anyfmt", "변화 추적"),
 )
 
 

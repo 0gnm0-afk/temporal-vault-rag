@@ -77,6 +77,25 @@ def test_history_hand_computed():
     assert r["history"] == pytest.approx(1 / 3)
 
 
+def test_history_anyfmt_reads_yearless_dates():
+    q = {"id": "q", "type": "변화 추적", "gold_docs": ["a.md"],
+         "change_points": [{"date": "2025-01-01"}, {"date": "2025-03-01"}]}
+    ranked = [row("c1", "a.md", "2025-01-01"), row("c2", "s.md", "2025-05-01", text="3/1에 한도를 바꿨다")]
+    r = score_question(q, ranked, ranked, None, 5, 10)
+    assert r["history"] == 0.5          # "3/1" is not a full date
+    assert r["history_anyfmt"] == 1.0   # read as 2025-03-01 from the chunk's date
+    assert r["hist_ids"] == ["c1", "c2"]
+
+
+def test_separate_cutoff_lists_are_used():
+    # a mode whose top-k is not a prefix of its deeper list (time-sorted)
+    q = {"id": "q", "type": "일반", "gold_docs": ["a.md"]}
+    deep = [row("x", "x.md"), row("a1", "a.md")]
+    top = [row("a1", "a.md")]
+    r = score_question(q, deep, deep, None, k=1, history_k=1, top=top, hist=top)
+    assert r["recall_doc"] == 1.0 and r["mrr_doc"] == 0.5
+
+
 def test_dates_in_text_formats():
     assert dates_in_text("2025-03-17, 2025.4.2, 2025/05/09, 2025년 6월 1일, 2025-13-01") == {
         "2025-03-17", "2025-04-02", "2025-05-09", "2025-06-01"}

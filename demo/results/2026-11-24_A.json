@@ -6,13 +6,14 @@
   "snapshot": "demo",
   "index_manifest": {
    "chunks_file": "chunks.jsonl",
-   "chunks_sha256": "164ac2ad8402d00be4df7d3d4e7814447f39d72b2d8d908cc0207bae23d46836",
+   "chunks_sha256": "eb365cf7b4d2faa6f1d1c2ea937a1e9aa38af70976d0344f262c3b242d1bbf19",
    "n_chunks": 51,
    "embedding_model": "BAAI/bge-m3",
    "embedding_revision": "5617a9f61b028005a4858fdac845db406aefb181",
    "embedding_dim": 1024,
    "normalize": true,
    "embed_template_version": 1,
+   "metadata_version": 2,
    "vectors_sha256": "76f082dfc173454f6ca5df1d12671aaeeeb732dd26d712be824e62ddaf327da6",
    "bm25_tags": [
     "NNG",
@@ -37,9 +38,182 @@
   "retrieve": {
    "top_k": 5,
    "rrf_k": 60,
-   "candidates": 50
+   "candidates": 50,
+   "c": {
+    "as_of_filter": "pre",
+    "half_life_days": 60,
+    "change_pool": 30,
+    "reference_date": "2025-06-30"
+   }
   },
   "gold_problems": [],
+  "question_reading": {
+   "type_accuracy": 1.0,
+   "as_of_exact": 0.6,
+   "as_of_within_days": 7,
+   "as_of_close": 0.8,
+   "confusion": {
+    "일반": {
+     "일반": 5
+    },
+    "시점 고정": {
+     "시점 고정": 5
+    },
+    "현재 값": {
+     "현재 값": 5
+    },
+    "변화 추적": {
+     "변화 추적": 5
+    }
+   },
+   "questions": [
+    {
+     "id": "demo-g1",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g2",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g3",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g4",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g5",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-p1",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-02-15",
+     "as_of_pred": "2025-02-20",
+     "as_of_diff_days": 5,
+     "as_of_exact": false,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p2",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-03-31",
+     "as_of_pred": "2025-03-31",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p3",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-01-31",
+     "as_of_pred": "2025-01-31",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p4",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-04-01",
+     "as_of_pred": "2025-04-01",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p5",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-05-01",
+     "as_of_pred": "2025-05-10",
+     "as_of_diff_days": 9,
+     "as_of_exact": false,
+     "as_of_close": false
+    },
+    {
+     "id": "demo-c1",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c2",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c3",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c4",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c5",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h1",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h2",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h3",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h4",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h5",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    }
+   ]
+  },
   "mode": "A"
  },
  "summary": {
@@ -96,6 +270,12 @@
    "history_strict": {
     "mean": 0.8166666666666667,
     "lo": 0.55,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_anyfmt": {
+    "mean": 0.9,
+    "lo": 0.7,
     "hi": 1.0,
     "n": 5
    }
@@ -234,6 +414,12 @@
    "history_strict": {
     "mean": 0.8166666666666667,
     "lo": 0.55,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_anyfmt": {
+    "mean": 0.9,
+    "lo": 0.7,
     "hi": 1.0,
     "n": 5
    }
@@ -387,6 +573,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/무릎 관리.md::000",
+    "sessions/2025-03-24 무릎 통증.md::000",
+    "sessions/2025-04-07 무릎 회복.md::000",
+    "topics/운동 루틴.md::002",
+    "sessions/2025-05-05 달리기 준비.md::000"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -540,6 +733,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/수면 루틴.md::000",
+    "sessions/2025-02-10 수면 점검.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/운동 루틴.md::002",
+    "topics/식단 기준.md::006"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -693,6 +893,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-27 외식 원칙 정하기.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-05-19 여행 중 식단.md::000",
+    "topics/수면 루틴.md::000",
+    "topics/식단 기준.md::006"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -846,6 +1053,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-05-05 달리기 준비.md::000",
+    "topics/운동 루틴.md::000",
+    "sessions/2025-06-09 6월 점검.md::000",
+    "topics/운동 루틴.md::001",
+    "topics/운동 루틴.md::002"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -999,6 +1213,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-02-24 장보기 목록.md::000",
+    "sessions/2025-05-19 여행 중 식단.md::000",
+    "sessions/2025-04-28 회식 주간.md::000",
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::006"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -1152,6 +1373,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-02-03 한도 조정.md::000",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::002",
+    "topics/식단 기준.md::001"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -1309,6 +1537,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "topics/운동 루틴.md::001",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/운동 루틴.md::000",
+    "topics/운동 루틴.md::002"
+   ],
    "recall_doc": 0.5,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -1466,6 +1701,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 3,
+   "top_k": [
+    "topics/식단 기준.md::003",
+    "topics/식단 기준.md::006",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/식단 기준.md::001",
+    "topics/식단 기준.md::000"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -1624,6 +1866,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 8,
+   "top_k": [
+    "topics/체중 기록.md::009",
+    "topics/체중 기록.md::008",
+    "topics/체중 기록.md::013",
+    "sessions/2025-04-14 4월 중간 점검.md::000",
+    "topics/체중 기록.md::005"
+   ],
    "recall_doc": 0.5,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -1786,6 +2035,13 @@
    ],
    "first_doc_rank": 3,
    "first_section_rank": 3,
+   "top_k": [
+    "sessions/2025-06-16 세 번째 인바디.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "topics/인바디 기록.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 0.3333333333333333,
    "missed_docs": [],
@@ -1944,6 +2200,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::001",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "topics/식단 기준.md::002"
+   ],
    "recall_doc": 0.3333333333333333,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2104,6 +2367,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/체중 기록.md::013",
+    "topics/체중 기록.md::009",
+    "sessions/2025-02-17 정체기.md::000",
+    "sessions/2025-03-31 체중 반등.md::000",
+    "topics/체중 기록.md::012"
+   ],
    "recall_doc": 0.5,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2263,6 +2533,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 2,
+   "top_k": [
+    "topics/운동 루틴.md::001",
+    "topics/운동 루틴.md::000",
+    "topics/운동 루틴.md::002",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-01-06 시작 점검.md::000"
+   ],
    "recall_doc": 0.3333333333333333,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2423,6 +2700,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::006",
+    "topics/식단 기준.md::001",
+    "topics/식단 기준.md::003",
+    "sessions/2025-06-02 단백질 목표 조정.md::000"
+   ],
    "recall_doc": 0.6666666666666666,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2582,6 +2866,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/인바디 기록.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-06-16 세 번째 인바디.md::000",
+    "sessions/2025-01-06 시작 점검.md::000"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -2739,6 +3030,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 2,
+   "top_k": [
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::001",
+    "topics/식단 기준.md::005",
+    "topics/식단 기준.md::002",
+    "sessions/2025-02-03 한도 조정.md::000"
+   ],
    "recall_doc": 0.4,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2750,7 +3048,20 @@
    "mrr_section": 0.5,
    "history": 1.0,
    "history_strict": 1.0,
-   "history_missing": []
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "topics/식단 기준.md::000",
+    "topics/식단 기준.md::001",
+    "topics/식단 기준.md::005",
+    "topics/식단 기준.md::002",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "topics/식단 기준.md::004",
+    "topics/식단 기준.md::003",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ]
   },
   {
    "id": "demo-h2",
@@ -2899,6 +3210,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/체중 기록.md::013",
+    "topics/체중 기록.md::011",
+    "topics/체중 기록.md::000",
+    "sessions/2025-02-17 정체기.md::000",
+    "topics/체중 기록.md::001"
+   ],
    "recall_doc": 0.14285714285714285,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -2918,6 +3236,19 @@
     "2025-03-03",
     "2025-04-14",
     "2025-06-09"
+   ],
+   "history_anyfmt": 0.5,
+   "hist_ids": [
+    "topics/체중 기록.md::013",
+    "topics/체중 기록.md::011",
+    "topics/체중 기록.md::000",
+    "sessions/2025-02-17 정체기.md::000",
+    "topics/체중 기록.md::001",
+    "topics/체중 기록.md::009",
+    "topics/체중 기록.md::010",
+    "topics/체중 기록.md::004",
+    "topics/인바디 기록.md::000",
+    "sessions/2025-03-31 체중 반등.md::000"
    ]
   },
   {
@@ -3067,6 +3398,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 2,
+   "top_k": [
+    "topics/운동 루틴.md::001",
+    "topics/운동 루틴.md::002",
+    "topics/운동 루틴.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "topics/식단 기준.md::003"
+   ],
    "recall_doc": 0.4,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -3078,7 +3416,20 @@
    "mrr_section": 0.5,
    "history": 1.0,
    "history_strict": 0.75,
-   "history_missing": []
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "topics/운동 루틴.md::001",
+    "topics/운동 루틴.md::002",
+    "topics/운동 루틴.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "topics/식단 기준.md::003",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "sessions/2025-05-05 달리기 준비.md::000",
+    "topics/수면 루틴.md::000",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/식단 기준.md::005"
+   ]
   },
   {
    "id": "demo-h4",
@@ -3227,6 +3578,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/식단 기준.md::003",
+    "topics/식단 기준.md::006",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000"
+   ],
    "recall_doc": 0.75,
    "mrr_doc": 1.0,
    "missed_docs": [
@@ -3236,7 +3594,20 @@
    "mrr_section": 1.0,
    "history": 1.0,
    "history_strict": 1.0,
-   "history_missing": []
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "topics/식단 기준.md::003",
+    "topics/식단 기준.md::006",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "topics/식단 기준.md::001",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/식단 기준.md::005",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "topics/운동 루틴.md::002"
+   ]
   },
   {
    "id": "demo-h5",
@@ -3385,6 +3756,13 @@
    ],
    "first_doc_rank": 1,
    "first_section_rank": 1,
+   "top_k": [
+    "topics/인바디 기록.md::000",
+    "sessions/2025-06-16 세 번째 인바디.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
    "recall_doc": 1.0,
    "mrr_doc": 1.0,
    "missed_docs": [],
@@ -3392,7 +3770,20 @@
    "mrr_section": 1.0,
    "history": 1.0,
    "history_strict": 1.0,
-   "history_missing": []
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "topics/인바디 기록.md::000",
+    "sessions/2025-06-16 세 번째 인바디.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "topics/체중 기록.md::011",
+    "sessions/2025-06-09 6월 점검.md::000",
+    "topics/체중 기록.md::010",
+    "topics/운동 루틴.md::002"
+   ]
   }
  ]
 }
