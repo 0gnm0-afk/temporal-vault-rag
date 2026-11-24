@@ -475,7 +475,7 @@ def evaluate(cfg: dict, modes: list[str], eval_set: str | Path | None = None, ou
         "gold_problems": gold_problems,
     }
     if any(m in ("D", "DL") for m in modes):
-        meta["facts"] = {"table": str(paths.get("facts")), "rows": len(retriever.facts.facts) if retriever.facts else 0,
+        meta["facts"] = {"table": Path(paths["facts"]).name, "rows": len(retriever.facts.facts) if retriever.facts else 0,
                          "sha256": _sha256(Path(paths["facts"])) if retriever.facts else None,
                          "config": cfg.get("facts") or {}}
     if any(m in ("C", "CL", "D", "DL") for m in modes):
