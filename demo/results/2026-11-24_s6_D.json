@@ -1,0 +1,4573 @@
+{
+ "meta": {
+  "date": "2026-11-24_s6",
+  "eval_set": "eval.jsonl",
+  "eval_sha256": "d292d8c1a86d5a3711bc398c4fcf0de28cac071ede5295962e60dbda1f556cf0",
+  "snapshot": "demo",
+  "index_manifest": {
+   "chunks_file": "chunks.jsonl",
+   "chunks_sha256": "eb365cf7b4d2faa6f1d1c2ea937a1e9aa38af70976d0344f262c3b242d1bbf19",
+   "n_chunks": 51,
+   "embedding_model": "BAAI/bge-m3",
+   "embedding_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+   "embedding_dim": 1024,
+   "normalize": true,
+   "embed_template_version": 1,
+   "metadata_version": 2,
+   "vectors_sha256": "76f082dfc173454f6ca5df1d12671aaeeeb732dd26d712be824e62ddaf327da6",
+   "bm25_tags": [
+    "NNG",
+    "NNP",
+    "NR",
+    "SH",
+    "SL",
+    "SN",
+    "VA",
+    "VV",
+    "XR"
+   ],
+   "kiwipiepy_version": "0.25.1",
+   "bm25_tokens_sha256": "b7abf333d0c08cc68c9d272ffecd967e6875c20a496829e9c4bffa1cdbabdcca"
+  },
+  "n_questions": 20,
+  "k": 5,
+  "depth": 20,
+  "history_k": 10,
+  "n_boot": 2000,
+  "seed": 0,
+  "retrieve": {
+   "top_k": 5,
+   "rrf_k": 60,
+   "candidates": 50,
+   "c": {
+    "as_of_filter": "pre",
+    "half_life_days": 60,
+    "change_pool": 30,
+    "reference_date": "2025-06-30"
+   }
+  },
+  "gold_problems": [],
+  "facts": {
+   "table": "facts.jsonl",
+   "rows": 35,
+   "sha256": "ee20c65e320f31b75c930e075581746f0b24d9c6f2ced72447de7c92b9ff1c27",
+   "config": {
+    "default_series": {
+     "체중": "아침 공복"
+    },
+    "change_series": {},
+    "max_evidence_per_row": 2
+   }
+  },
+  "question_reading": {
+   "type_accuracy": 1.0,
+   "as_of_exact": 0.6,
+   "as_of_within_days": 7,
+   "as_of_close": 0.8,
+   "confusion": {
+    "일반": {
+     "일반": 5
+    },
+    "시점 고정": {
+     "시점 고정": 5
+    },
+    "현재 값": {
+     "현재 값": 5
+    },
+    "변화 추적": {
+     "변화 추적": 5
+    }
+   },
+   "questions": [
+    {
+     "id": "demo-g1",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g2",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g3",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g4",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-g5",
+     "label": "일반",
+     "pred": "일반",
+     "type_ok": true
+    },
+    {
+     "id": "demo-p1",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-02-15",
+     "as_of_pred": "2025-02-20",
+     "as_of_diff_days": 5,
+     "as_of_exact": false,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p2",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-03-31",
+     "as_of_pred": "2025-03-31",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p3",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-01-31",
+     "as_of_pred": "2025-01-31",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p4",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-04-01",
+     "as_of_pred": "2025-04-01",
+     "as_of_diff_days": 0,
+     "as_of_exact": true,
+     "as_of_close": true
+    },
+    {
+     "id": "demo-p5",
+     "label": "시점 고정",
+     "pred": "시점 고정",
+     "type_ok": true,
+     "as_of_label": "2025-05-01",
+     "as_of_pred": "2025-05-10",
+     "as_of_diff_days": 9,
+     "as_of_exact": false,
+     "as_of_close": false
+    },
+    {
+     "id": "demo-c1",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c2",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c3",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c4",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-c5",
+     "label": "현재 값",
+     "pred": "현재 값",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h1",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h2",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h3",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h4",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    },
+    {
+     "id": "demo-h5",
+     "label": "변화 추적",
+     "pred": "변화 추적",
+     "type_ok": true
+    }
+   ]
+  },
+  "mode": "D"
+ },
+ "summary": {
+  "전체": {
+   "n": 20,
+   "recall_doc": {
+    "mean": 0.8689285714285715,
+    "lo": 0.7414017857142857,
+    "hi": 0.9714285714285713,
+    "n": 20
+   },
+   "recall_section": {
+    "mean": 0.7972619047619047,
+    "lo": 0.6716190476190476,
+    "hi": 0.9089345238095239,
+    "n": 20
+   },
+   "mrr_doc": {
+    "mean": 0.93,
+    "lo": 0.8150000000000001,
+    "hi": 1.0,
+    "n": 20
+   },
+   "mrr_section": {
+    "mean": 0.93,
+    "lo": 0.8150000000000001,
+    "hi": 1.0,
+    "n": 20
+   },
+   "contamination": {
+    "mean": 0.08,
+    "lo": 0.0,
+    "hi": 0.16,
+    "n": 5
+   },
+   "recency": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recency_strict": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_strict": {
+    "mean": 0.8333333333333334,
+    "lo": 0.6333333333333333,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_anyfmt": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "value_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 12
+   },
+   "value_answered": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 12
+   }
+  },
+  "일반": {
+   "n": 5,
+   "recall_doc": {
+    "mean": 0.8,
+    "lo": 0.4,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recall_section": {
+    "mean": 0.8,
+    "lo": 0.4,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_doc": {
+    "mean": 0.82,
+    "lo": 0.4600000000000001,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_section": {
+    "mean": 0.82,
+    "lo": 0.4600000000000001,
+    "hi": 1.0,
+    "n": 5
+   }
+  },
+  "시점 고정": {
+   "n": 5,
+   "recall_doc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recall_section": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_doc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_section": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "contamination": {
+    "mean": 0.08,
+    "lo": 0.0,
+    "hi": 0.16,
+    "n": 5
+   },
+   "value_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   },
+   "value_answered": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   }
+  },
+  "현재 값": {
+   "n": 5,
+   "recall_doc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recall_section": {
+    "mean": 0.8333333333333333,
+    "lo": 0.7166666666666666,
+    "hi": 0.95,
+    "n": 5
+   },
+   "mrr_doc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_section": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recency": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "recency_strict": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "value_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   },
+   "value_answered": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   }
+  },
+  "변화 추적": {
+   "n": 5,
+   "recall_doc": {
+    "mean": 0.6757142857142857,
+    "lo": 0.48571428571428565,
+    "hi": 0.8699999999999999,
+    "n": 5
+   },
+   "recall_section": {
+    "mean": 0.5557142857142857,
+    "lo": 0.44571428571428573,
+    "hi": 0.66,
+    "n": 5
+   },
+   "mrr_doc": {
+    "mean": 0.9,
+    "lo": 0.7,
+    "hi": 1.0,
+    "n": 5
+   },
+   "mrr_section": {
+    "mean": 0.9,
+    "lo": 0.7,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_strict": {
+    "mean": 0.8333333333333334,
+    "lo": 0.6333333333333333,
+    "hi": 1.0,
+    "n": 5
+   },
+   "history_anyfmt": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 5
+   },
+   "value_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   },
+   "value_answered": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "n": 4
+   }
+  }
+ },
+ "questions": [
+  {
+   "id": "demo-g1",
+   "type": "일반",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "topics/무릎 관리.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-04-07 무릎 회복.md::000",
+     "event_date": "2025-04-07",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "topics/무릎 관리.md::000",
+    "sessions/2025-03-24 무릎 통증.md::000",
+    "sessions/2025-04-07 무릎 회복.md::000",
+    "sessions/2025-05-05 달리기 준비.md::000",
+    "sessions/2025-06-09 6월 점검.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "intent": {
+    "qtype": "일반",
+    "as_of": null,
+    "cue": null,
+    "facts": [],
+    "fact_attrs": []
+   }
+  },
+  {
+   "id": "demo-g2",
+   "type": "일반",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-02-10 수면 점검.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/식단 기준.md::005",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-02-10 수면 점검.md::000",
+    "topics/수면 루틴.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::003",
+    "topics/운동 루틴.md::002"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "intent": {
+    "qtype": "일반",
+    "as_of": null,
+    "cue": null,
+    "facts": [],
+    "fact_attrs": []
+   }
+  },
+  {
+   "id": "demo-g3",
+   "type": "일반",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/무릎 관리.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-04-07 무릎 회복.md::000",
+     "event_date": "2025-04-07",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-02-10 수면 점검.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-27 외식 원칙 정하기.md::000",
+    "topics/식단 기준.md::000",
+    "topics/수면 루틴.md::000",
+    "sessions/2025-02-17 정체기.md::000",
+    "topics/체중 기록.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "intent": {
+    "qtype": "일반",
+    "as_of": null,
+    "cue": null,
+    "facts": [],
+    "fact_attrs": []
+   }
+  },
+  {
+   "id": "demo-g4",
+   "type": "일반",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-04-07 무릎 회복.md::000",
+     "event_date": "2025-04-07",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/무릎 관리.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-05-05 달리기 준비.md::000",
+    "sessions/2025-06-09 6월 점검.md::000",
+    "topics/운동 루틴.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "topics/운동 루틴.md::002"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "intent": {
+    "qtype": "일반",
+    "as_of": null,
+    "cue": null,
+    "facts": [],
+    "fact_attrs": []
+   }
+  },
+  {
+   "id": "demo-g5",
+   "type": "일반",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-04-07 무릎 회복.md::000",
+     "event_date": "2025-04-07",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-02-24 장보기 목록.md::000",
+     "event_date": "2025-02-24",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-02-10 수면 점검.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/무릎 관리.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 10,
+   "first_section_rank": 10,
+   "top_k": [
+    "topics/식단 기준.md::000",
+    "sessions/2025-05-26 여행 후 점검.md::000",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000"
+   ],
+   "recall_doc": 0.0,
+   "mrr_doc": 0.1,
+   "missed_docs": [
+    "sessions/2025-02-24 장보기 목록"
+   ],
+   "recall_section": 0.0,
+   "mrr_section": 0.1,
+   "intent": {
+    "qtype": "일반",
+    "as_of": null,
+    "cue": null,
+    "facts": [],
+    "fact_attrs": []
+   }
+  },
+  {
+   "id": "demo-p1",
+   "type": "시점 고정",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::004",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-02-10 수면 점검.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/체중 기록.md::002",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/체중 기록.md::003",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-02-03 한도 조정.md::000",
+    "topics/식단 기준.md::002",
+    "topics/식단 기준.md::000",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/식단 기준.md::001"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "contamination": 0.0,
+   "contaminated": [],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "시점 고정",
+    "as_of": "2025-02-20",
+    "cue": "2025년 2월 중순",
+    "facts": [
+     {
+      "id": "k-0203",
+      "attr": "식단 한도",
+      "value": 2100,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-02-03",
+      "valid_to": "2025-03-17",
+      "evidence": [
+       "sessions/2025-02-03 한도 조정.md::000",
+       "topics/식단 기준.md::002",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "식단 한도"
+    ]
+   }
+  },
+  {
+   "id": "demo-p2",
+   "type": "시점 고정",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/식단 기준.md::004",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-02-10 수면 점검.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-03-24 무릎 통증.md::000",
+    "topics/운동 루틴.md::002",
+    "topics/운동 루틴.md::001",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "topics/운동 루틴.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "contamination": 0.0,
+   "contaminated": [],
+   "value_nonnumeric": 1.0,
+   "intent": {
+    "qtype": "시점 고정",
+    "as_of": "2025-03-31",
+    "cue": "2025년 3월 말",
+    "facts": [
+     {
+      "id": "r-0324",
+      "attr": "운동 루틴",
+      "value": "분할 4회, 런지 대신 레그프레스(2주)",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-03-24",
+      "valid_to": "2025-04-07",
+      "evidence": [
+       "sessions/2025-03-24 무릎 통증.md::000",
+       "topics/운동 루틴.md::002"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "운동 루틴"
+    ]
+   }
+  },
+  {
+   "id": "demo-p3",
+   "type": "시점 고정",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/체중 기록.md::002",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/식단 기준.md::001",
+    "topics/식단 기준.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-01-27 외식 원칙 정하기.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "contamination": 0.2,
+   "contaminated": [
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "시점 고정",
+    "as_of": "2025-01-31",
+    "cue": "2025년 1월 말",
+    "facts": [
+     {
+      "id": "g-0106",
+      "attr": "단백질 목표",
+      "value": 110,
+      "unit": "g",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-01-06",
+      "valid_to": "2025-03-03",
+      "evidence": [
+       "sessions/2025-01-06 시작 점검.md::000",
+       "topics/식단 기준.md::001"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "단백질 목표"
+    ]
+   }
+  },
+  {
+   "id": "demo-p4",
+   "type": "시점 고정",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/체중 기록.md::005",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/체중 기록.md::003",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/체중 기록.md::004",
+     "event_date": "2025-02-17",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/체중 기록.md::002",
+     "event_date": "2025-01-20",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/식단 기준.md::004",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-03-31 체중 반등.md::000",
+    "topics/체중 기록.md::007",
+    "topics/체중 기록.md::001",
+    "topics/체중 기록.md::005",
+    "topics/체중 기록.md::003"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "contamination": 0.0,
+   "contaminated": [],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "시점 고정",
+    "as_of": "2025-04-01",
+    "cue": "2025년 4월 1일",
+    "facts": [
+     {
+      "id": "w-0331",
+      "attr": "체중",
+      "value": 78.0,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-03-31",
+      "valid_to": "2025-04-14",
+      "evidence": [
+       "sessions/2025-03-31 체중 반등.md::000",
+       "topics/체중 기록.md::007"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "체중"
+    ]
+   }
+  },
+  {
+   "id": "demo-p5",
+   "type": "시점 고정",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-04-12 두 번째 인바디.md::000",
+     "event_date": "2025-04-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/식단 기준.md::004",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::009",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "topics/인바디 기록.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-01-06 시작 점검.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "contamination": 0.2,
+   "contaminated": [
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "시점 고정",
+    "as_of": "2025-05-10",
+    "cue": "2025년 5월 초",
+    "facts": [
+     {
+      "id": "p-0412",
+      "attr": "체지방률",
+      "value": 25.1,
+      "unit": "%",
+      "detail": null,
+      "numeric": true,
+      "series": "",
+      "nature": "측정",
+      "valid_from": "2025-04-12",
+      "valid_to": "2025-06-16",
+      "evidence": [
+       "sessions/2025-04-12 두 번째 인바디.md::000",
+       "topics/인바디 기록.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "체지방률"
+    ]
+   }
+  },
+  {
+   "id": "demo-c1",
+   "type": "현재 값",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/식단 기준.md::005",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::013",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/식단 기준.md::004",
+     "event_date": "2025-03-17",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/체중 기록.md::012",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/식단 기준.md::002",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "sessions/2025-05-19 여행 중 식단.md::000",
+    "topics/식단 기준.md::005"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 0.75,
+   "mrr_section": 1.0,
+   "latest_gold_date": "2025-06-23",
+   "top1_date": "2025-06-23",
+   "recency": 1.0,
+   "recency_strict": 1.0,
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "현재 값",
+    "as_of": null,
+    "cue": "지금",
+    "facts": [
+     {
+      "id": "k-0512",
+      "attr": "식단 한도",
+      "value": 2000,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-05-12",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-05-12 유지기 전환.md::000",
+       "topics/식단 기준.md::005",
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/식단 기준.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "식단 한도"
+    ]
+   }
+  },
+  {
+   "id": "demo-c2",
+   "type": "현재 값",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/체중 기록.md::013",
+     "event_date": "2025-06-23",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/체중 기록.md::012",
+     "event_date": "2025-06-09",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/체중 기록.md::009",
+     "event_date": "2025-04-28",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/체중 기록.md::008",
+     "event_date": "2025-04-14",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-04-12 두 번째 인바디.md::000",
+     "event_date": "2025-04-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/체중 기록.md::005",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "topics/체중 기록.md::013",
+    "topics/체중 기록.md::012",
+    "topics/인바디 기록.md::000",
+    "sessions/2025-06-16 세 번째 인바디.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "latest_gold_date": "2025-06-23",
+   "top1_date": "2025-06-23",
+   "recency": 1.0,
+   "recency_strict": 1.0,
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "현재 값",
+    "as_of": null,
+    "cue": "요즘",
+    "facts": [
+     {
+      "id": "w-0623",
+      "attr": "체중",
+      "value": 75.9,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-06-23",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/체중 기록.md::013"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "체중"
+    ]
+   }
+  },
+  {
+   "id": "demo-c3",
+   "type": "현재 값",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::013",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/무릎 관리.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/체중 기록.md::012",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "topics/운동 루틴.md::002",
+    "sessions/2025-05-05 달리기 준비.md::000",
+    "topics/인바디 기록.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 0.6666666666666666,
+   "mrr_section": 1.0,
+   "latest_gold_date": "2025-06-23",
+   "top1_date": "2025-06-23",
+   "recency": 1.0,
+   "recency_strict": 1.0,
+   "value_nonnumeric": 1.0,
+   "intent": {
+    "qtype": "현재 값",
+    "as_of": null,
+    "cue": "현재",
+    "facts": [
+     {
+      "id": "r-0512",
+      "attr": "운동 루틴",
+      "value": "주 4회 상하체 분할 + 인터벌 달리기 주 2회, 하체 보조는 불가리안 스플릿 스쿼트",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-05-12",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-05-12 유지기 전환.md::000",
+       "topics/운동 루틴.md::000",
+       "topics/운동 루틴.md::002",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "운동 루틴"
+    ]
+   }
+  },
+  {
+   "id": "demo-c4",
+   "type": "현재 값",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "topics/체중 기록.md::013",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/식단 기준.md::005",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/체중 기록.md::012",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::006",
+    "sessions/2025-05-19 여행 중 식단.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 0.75,
+   "mrr_section": 1.0,
+   "latest_gold_date": "2025-06-23",
+   "top1_date": "2025-06-23",
+   "recency": 1.0,
+   "recency_strict": 1.0,
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "현재 값",
+    "as_of": null,
+    "cue": "지금",
+    "facts": [
+     {
+      "id": "g-0602",
+      "attr": "단백질 목표",
+      "value": 130,
+      "unit": "g",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-06-02",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-02 단백질 목표 조정.md::000",
+       "topics/식단 기준.md::006",
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/식단 기준.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "단백질 목표"
+    ]
+   }
+  },
+  {
+   "id": "demo-c5",
+   "type": "현재 값",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/식단 기준.md::005",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/체중 기록.md::013",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-04-12 두 번째 인바디.md::000",
+     "event_date": "2025-04-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/체중 기록.md::012",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::009",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-06-16 세 번째 인바디.md::000",
+    "topics/인바디 기록.md::000",
+    "topics/식단 기준.md::005",
+    "topics/체중 기록.md::013",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 1.0,
+   "mrr_section": 1.0,
+   "latest_gold_date": "2025-06-16",
+   "top1_date": "2025-06-16",
+   "recency": 1.0,
+   "recency_strict": 1.0,
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "현재 값",
+    "as_of": null,
+    "cue": "최근",
+    "facts": [
+     {
+      "id": "m-0616",
+      "attr": "골격근량",
+      "value": 32.3,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "",
+      "nature": "측정",
+      "valid_from": "2025-06-16",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-16 세 번째 인바디.md::000",
+       "topics/인바디 기록.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "골격근량"
+    ]
+   }
+  },
+  {
+   "id": "demo-h1",
+   "type": "변화 추적",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-01-27 외식 원칙 정하기.md::000",
+     "event_date": "2025-01-27",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/식단 기준.md::005",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 2,
+   "first_section_rank": 2,
+   "top_k": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000"
+   ],
+   "recall_doc": 0.8,
+   "mrr_doc": 0.5,
+   "missed_docs": [
+    "sessions/2025-01-06 시작 점검"
+   ],
+   "recall_section": 0.6,
+   "mrr_section": 0.5,
+   "history": 1.0,
+   "history_strict": 1.0,
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-01-27 외식 원칙 정하기.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "topics/식단 기준.md::003",
+    "sessions/2025-03-17 한도 재조정.md::000",
+    "sessions/2025-04-14 4월 중간 점검.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "sessions/2025-05-19 여행 중 식단.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "변화 추적",
+    "as_of": null,
+    "cue": "바뀌",
+    "facts": [
+     {
+      "id": "k-0106",
+      "attr": "식단 한도",
+      "value": 2300,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-01-06",
+      "valid_to": "2025-02-03",
+      "evidence": [
+       "sessions/2025-01-06 시작 점검.md::000",
+       "topics/식단 기준.md::001",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     },
+     {
+      "id": "k-0203",
+      "attr": "식단 한도",
+      "value": 2100,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-02-03",
+      "valid_to": "2025-03-17",
+      "evidence": [
+       "sessions/2025-02-03 한도 조정.md::000",
+       "topics/식단 기준.md::002",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     },
+     {
+      "id": "k-0317",
+      "attr": "식단 한도",
+      "value": 1900,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-03-17",
+      "valid_to": "2025-05-12",
+      "evidence": [
+       "sessions/2025-03-17 한도 재조정.md::000",
+       "topics/식단 기준.md::004",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     },
+     {
+      "id": "k-0512",
+      "attr": "식단 한도",
+      "value": 2000,
+      "unit": "kcal",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-05-12",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-05-12 유지기 전환.md::000",
+       "topics/식단 기준.md::005",
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/식단 기준.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "식단 한도"
+    ]
+   }
+  },
+  {
+   "id": "demo-h2",
+   "type": "변화 추적",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-04-14 4월 중간 점검.md::000",
+     "event_date": "2025-04-14",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/체중 기록.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::003",
+     "event_date": "2025-02-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/체중 기록.md::004",
+     "event_date": "2025-02-17",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::005",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": true,
+     "gold_section": true
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "sessions/2025-02-17 정체기.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-03-31 체중 반등.md::000"
+   ],
+   "recall_doc": 0.42857142857142855,
+   "mrr_doc": 1.0,
+   "missed_docs": [
+    "sessions/2025-04-14 4월 중간 점검",
+    "sessions/2025-05-12 유지기 전환",
+    "sessions/2025-06-09 6월 점검",
+    "topics/체중 기록"
+   ],
+   "recall_section": 0.42857142857142855,
+   "mrr_section": 1.0,
+   "history": 1.0,
+   "history_strict": 1.0,
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "sessions/2025-02-17 정체기.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-03-31 체중 반등.md::000",
+    "sessions/2025-04-14 4월 중간 점검.md::000",
+    "sessions/2025-04-28 회식 주간.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "sessions/2025-05-26 여행 후 점검.md::000",
+    "sessions/2025-06-09 6월 점검.md::000"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "변화 추적",
+    "as_of": null,
+    "cue": "추이",
+    "facts": [
+     {
+      "id": "w-0106",
+      "attr": "체중",
+      "value": 81.2,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-01-06",
+      "valid_to": "2025-02-03",
+      "evidence": [
+       "sessions/2025-01-06 시작 점검.md::000",
+       "topics/체중 기록.md::001"
+      ]
+     },
+     {
+      "id": "w-0203",
+      "attr": "체중",
+      "value": 80.1,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-02-03",
+      "valid_to": "2025-02-17",
+      "evidence": [
+       "sessions/2025-02-03 한도 조정.md::000",
+       "topics/체중 기록.md::003"
+      ]
+     },
+     {
+      "id": "w-0217",
+      "attr": "체중",
+      "value": 79.4,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-02-17",
+      "valid_to": "2025-03-03",
+      "evidence": [
+       "sessions/2025-02-17 정체기.md::000",
+       "topics/체중 기록.md::004"
+      ]
+     },
+     {
+      "id": "w-0303",
+      "attr": "체중",
+      "value": 78.6,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-03-03",
+      "valid_to": "2025-03-31",
+      "evidence": [
+       "sessions/2025-03-03 분할 루틴 전환.md::000",
+       "topics/체중 기록.md::005"
+      ]
+     },
+     {
+      "id": "w-0331",
+      "attr": "체중",
+      "value": 78.0,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-03-31",
+      "valid_to": "2025-04-14",
+      "evidence": [
+       "sessions/2025-03-31 체중 반등.md::000",
+       "topics/체중 기록.md::007"
+      ]
+     },
+     {
+      "id": "w-0414",
+      "attr": "체중",
+      "value": 77.2,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-04-14",
+      "valid_to": "2025-04-28",
+      "evidence": [
+       "sessions/2025-04-14 4월 중간 점검.md::000",
+       "topics/체중 기록.md::008"
+      ]
+     },
+     {
+      "id": "w-0428",
+      "attr": "체중",
+      "value": 76.9,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-04-28",
+      "valid_to": "2025-05-12",
+      "evidence": [
+       "sessions/2025-04-28 회식 주간.md::000",
+       "topics/체중 기록.md::009"
+      ]
+     },
+     {
+      "id": "w-0512",
+      "attr": "체중",
+      "value": 76.5,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-05-12",
+      "valid_to": "2025-05-26",
+      "evidence": [
+       "sessions/2025-05-12 유지기 전환.md::000",
+       "topics/체중 기록.md::010"
+      ]
+     },
+     {
+      "id": "w-0526",
+      "attr": "체중",
+      "value": 76.8,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-05-26",
+      "valid_to": "2025-06-09",
+      "evidence": [
+       "sessions/2025-05-26 여행 후 점검.md::000",
+       "topics/체중 기록.md::011"
+      ]
+     },
+     {
+      "id": "w-0609",
+      "attr": "체중",
+      "value": 76.1,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-06-09",
+      "valid_to": "2025-06-23",
+      "evidence": [
+       "sessions/2025-06-09 6월 점검.md::000",
+       "topics/체중 기록.md::012"
+      ]
+     },
+     {
+      "id": "w-0623",
+      "attr": "체중",
+      "value": 75.9,
+      "unit": "kg",
+      "detail": null,
+      "numeric": true,
+      "series": "아침 공복",
+      "nature": "측정",
+      "valid_from": "2025-06-23",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/체중 기록.md::013"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "체중"
+    ]
+   }
+  },
+  {
+   "id": "demo-h3",
+   "type": "변화 추적",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-04-07 무릎 회복.md::000",
+     "event_date": "2025-04-07",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/운동 루틴.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "topics/운동 루틴.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "topics/체중 기록.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/수면 루틴.md::000",
+     "event_date": "2025-02-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-03-17 한도 재조정.md::000",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-03-24 무릎 통증.md::000",
+     "event_date": "2025-03-24",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-05-05 달리기 준비.md::000",
+     "event_date": "2025-05-05",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/운동 루틴.md::002",
+    "sessions/2025-04-07 무릎 회복.md::000",
+    "topics/운동 루틴.md::001",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
+   "recall_doc": 0.4,
+   "mrr_doc": 1.0,
+   "missed_docs": [
+    "sessions/2025-03-03 분할 루틴 전환",
+    "sessions/2025-03-24 무릎 통증",
+    "sessions/2025-05-12 유지기 전환"
+   ],
+   "recall_section": 0.4,
+   "mrr_section": 1.0,
+   "history": 1.0,
+   "history_strict": 0.5,
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "topics/운동 루틴.md::002",
+    "sessions/2025-04-07 무릎 회복.md::000",
+    "topics/운동 루틴.md::001",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "topics/수면 루틴.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-03-31 체중 반등.md::000",
+    "sessions/2025-03-17 한도 재조정.md::000"
+   ],
+   "value_nonnumeric": 1.0,
+   "intent": {
+    "qtype": "변화 추적",
+    "as_of": null,
+    "cue": "바뀌",
+    "facts": [
+     {
+      "id": "r-0106",
+      "attr": "운동 루틴",
+      "value": "주 3회 전신(고블릿 스쿼트, 덤벨 벤치프레스, 랫풀다운, 플랭크) + 매일 7천 보 걷기",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-01-06",
+      "valid_to": "2025-03-03",
+      "evidence": [
+       "sessions/2025-01-06 시작 점검.md::000",
+       "topics/운동 루틴.md::001"
+      ]
+     },
+     {
+      "id": "r-0303",
+      "attr": "운동 루틴",
+      "value": "주 4회 상하체 분할(상체 벤치프레스·바벨 로우·오버헤드 프레스 / 하체 백스쿼트·루마니안 데드리프트·런지) + 걷기",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-03-03",
+      "valid_to": "2025-03-24",
+      "evidence": [
+       "sessions/2025-03-03 분할 루틴 전환.md::000",
+       "topics/운동 루틴.md::002"
+      ]
+     },
+     {
+      "id": "r-0324",
+      "attr": "운동 루틴",
+      "value": "분할 4회, 런지 대신 레그프레스(2주)",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-03-24",
+      "valid_to": "2025-04-07",
+      "evidence": [
+       "sessions/2025-03-24 무릎 통증.md::000",
+       "topics/운동 루틴.md::002"
+      ]
+     },
+     {
+      "id": "r-0407",
+      "attr": "운동 루틴",
+      "value": "분할 4회 + 레그 익스텐션 3세트(가벼운 무게), 런지 미복귀",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-04-07",
+      "valid_to": "2025-05-12",
+      "evidence": [
+       "sessions/2025-04-07 무릎 회복.md::000"
+      ]
+     },
+     {
+      "id": "r-0512",
+      "attr": "운동 루틴",
+      "value": "주 4회 상하체 분할 + 인터벌 달리기 주 2회, 하체 보조는 불가리안 스플릿 스쿼트",
+      "unit": null,
+      "detail": null,
+      "numeric": false,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-05-12",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-05-12 유지기 전환.md::000",
+       "topics/운동 루틴.md::000",
+       "topics/운동 루틴.md::002",
+       "sessions/2025-06-23 상반기 정리.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "운동 루틴"
+    ]
+   }
+  },
+  {
+   "id": "demo-h4",
+   "type": "변화 추적",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-06-02 단백질 목표 조정.md::000",
+     "event_date": "2025-06-02",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 4,
+     "chunk_id": "topics/식단 기준.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 5,
+     "chunk_id": "topics/식단 기준.md::001",
+     "event_date": "2025-01-06",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "sessions/2025-02-17 정체기.md::000",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "topics/식단 기준.md::003",
+     "event_date": "2025-03-03",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 13,
+     "chunk_id": "topics/체중 기록.md::007",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/식단 기준.md::004",
+     "event_date": "2025-03-17",
+     "gold_doc": true,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-04-12 두 번째 인바디.md::000",
+     "event_date": "2025-04-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "sessions/2025-05-19 여행 중 식단.md::000",
+     "event_date": "2025-05-19",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": true,
+     "gold_section": true
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000"
+   ],
+   "recall_doc": 1.0,
+   "mrr_doc": 1.0,
+   "missed_docs": [],
+   "recall_section": 0.6,
+   "mrr_section": 1.0,
+   "history": 1.0,
+   "history_strict": 1.0,
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-06-02 단백질 목표 조정.md::000",
+    "topics/식단 기준.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "topics/인바디 기록.md::000",
+    "sessions/2025-02-03 한도 조정.md::000",
+    "topics/식단 기준.md::003",
+    "topics/체중 기록.md::007",
+    "topics/운동 루틴.md::002"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "변화 추적",
+    "as_of": null,
+    "cue": "바뀌",
+    "facts": [
+     {
+      "id": "g-0106",
+      "attr": "단백질 목표",
+      "value": 110,
+      "unit": "g",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-01-06",
+      "valid_to": "2025-03-03",
+      "evidence": [
+       "sessions/2025-01-06 시작 점검.md::000",
+       "topics/식단 기준.md::001"
+      ]
+     },
+     {
+      "id": "g-0303",
+      "attr": "단백질 목표",
+      "value": 140,
+      "unit": "g",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-03-03",
+      "valid_to": "2025-06-02",
+      "evidence": [
+       "sessions/2025-03-03 분할 루틴 전환.md::000",
+       "topics/식단 기준.md::003"
+      ]
+     },
+     {
+      "id": "g-0602",
+      "attr": "단백질 목표",
+      "value": 130,
+      "unit": "g",
+      "detail": "하루",
+      "numeric": true,
+      "series": "",
+      "nature": "사용자 결정",
+      "valid_from": "2025-06-02",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-02 단백질 목표 조정.md::000",
+       "topics/식단 기준.md::006",
+       "sessions/2025-06-23 상반기 정리.md::000",
+       "topics/식단 기준.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "단백질 목표"
+    ]
+   }
+  },
+  {
+   "id": "demo-h5",
+   "type": "변화 추적",
+   "ranked": [
+    {
+     "rank": 1,
+     "chunk_id": "topics/인바디 기록.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 2,
+     "chunk_id": "sessions/2025-01-06 시작 점검.md::000",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 3,
+     "chunk_id": "sessions/2025-06-23 상반기 정리.md::000",
+     "event_date": "2025-06-23",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 4,
+     "chunk_id": "sessions/2025-01-10 첫 인바디.md::000",
+     "event_date": "2025-01-10",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 5,
+     "chunk_id": "sessions/2025-01-20 식후 체중 혼동.md::000",
+     "event_date": "2025-01-20",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 6,
+     "chunk_id": "sessions/2025-02-03 한도 조정.md::000",
+     "event_date": "2025-02-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 7,
+     "chunk_id": "topics/체중 기록.md::004",
+     "event_date": "2025-02-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 8,
+     "chunk_id": "sessions/2025-03-03 분할 루틴 전환.md::000",
+     "event_date": "2025-03-03",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 9,
+     "chunk_id": "sessions/2025-03-31 체중 반등.md::000",
+     "event_date": "2025-03-31",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 10,
+     "chunk_id": "topics/운동 루틴.md::002",
+     "event_date": "2025-01-06",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 11,
+     "chunk_id": "topics/체중 기록.md::006",
+     "event_date": "2025-03-17",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 12,
+     "chunk_id": "sessions/2025-04-12 두 번째 인바디.md::000",
+     "event_date": "2025-04-12",
+     "gold_doc": true,
+     "gold_section": true
+    },
+    {
+     "rank": 13,
+     "chunk_id": "sessions/2025-04-28 회식 주간.md::000",
+     "event_date": "2025-04-28",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 14,
+     "chunk_id": "sessions/2025-05-12 유지기 전환.md::000",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 15,
+     "chunk_id": "topics/체중 기록.md::010",
+     "event_date": "2025-05-12",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 16,
+     "chunk_id": "sessions/2025-05-26 여행 후 점검.md::000",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 17,
+     "chunk_id": "topics/체중 기록.md::011",
+     "event_date": "2025-05-26",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 18,
+     "chunk_id": "topics/식단 기준.md::006",
+     "event_date": "2025-06-02",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 19,
+     "chunk_id": "sessions/2025-06-09 6월 점검.md::000",
+     "event_date": "2025-06-09",
+     "gold_doc": false,
+     "gold_section": false
+    },
+    {
+     "rank": 20,
+     "chunk_id": "sessions/2025-06-16 세 번째 인바디.md::000",
+     "event_date": "2025-06-16",
+     "gold_doc": true,
+     "gold_section": true
+    }
+   ],
+   "first_doc_rank": 1,
+   "first_section_rank": 1,
+   "top_k": [
+    "topics/인바디 기록.md::000",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000"
+   ],
+   "recall_doc": 0.75,
+   "mrr_doc": 1.0,
+   "missed_docs": [
+    "sessions/2025-06-16 세 번째 인바디"
+   ],
+   "recall_section": 0.75,
+   "mrr_section": 1.0,
+   "history": 1.0,
+   "history_strict": 0.6666666666666666,
+   "history_missing": [],
+   "history_anyfmt": 1.0,
+   "hist_ids": [
+    "topics/인바디 기록.md::000",
+    "sessions/2025-01-06 시작 점검.md::000",
+    "sessions/2025-06-23 상반기 정리.md::000",
+    "sessions/2025-01-10 첫 인바디.md::000",
+    "sessions/2025-03-03 분할 루틴 전환.md::000",
+    "sessions/2025-03-31 체중 반등.md::000",
+    "sessions/2025-04-12 두 번째 인바디.md::000",
+    "sessions/2025-05-12 유지기 전환.md::000",
+    "topics/체중 기록.md::011",
+    "sessions/2025-06-09 6월 점검.md::000"
+   ],
+   "value_answered": 1.0,
+   "value_acc": 1.0,
+   "intent": {
+    "qtype": "변화 추적",
+    "as_of": null,
+    "cue": "변했",
+    "facts": [
+     {
+      "id": "p-0110",
+      "attr": "체지방률",
+      "value": 27.8,
+      "unit": "%",
+      "detail": null,
+      "numeric": true,
+      "series": "",
+      "nature": "측정",
+      "valid_from": "2025-01-10",
+      "valid_to": "2025-04-12",
+      "evidence": [
+       "sessions/2025-01-10 첫 인바디.md::000",
+       "topics/인바디 기록.md::000"
+      ]
+     },
+     {
+      "id": "p-0412",
+      "attr": "체지방률",
+      "value": 25.1,
+      "unit": "%",
+      "detail": null,
+      "numeric": true,
+      "series": "",
+      "nature": "측정",
+      "valid_from": "2025-04-12",
+      "valid_to": "2025-06-16",
+      "evidence": [
+       "sessions/2025-04-12 두 번째 인바디.md::000",
+       "topics/인바디 기록.md::000"
+      ]
+     },
+     {
+      "id": "p-0616",
+      "attr": "체지방률",
+      "value": 23.6,
+      "unit": "%",
+      "detail": null,
+      "numeric": true,
+      "series": "",
+      "nature": "측정",
+      "valid_from": "2025-06-16",
+      "valid_to": null,
+      "evidence": [
+       "sessions/2025-06-16 세 번째 인바디.md::000",
+       "topics/인바디 기록.md::000"
+      ]
+     }
+    ],
+    "fact_attrs": [
+     "체지방률"
+    ]
+   }
+  }
+ ]
+}
