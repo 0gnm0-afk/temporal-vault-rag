@@ -1,0 +1,33 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  fast-tests:
+    # Fast tests only: chunking, dates, query parsing, retrieval rules, facts,
+    # metrics and the leak guard. Tests that load the 2.2GB embedding model are
+    # marked "slow" and run locally.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies (CPU torch)
+        run: |
+          pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+      - name: Prepare environment
+        run: |
+          sed "s|configs/local.yaml|configs/demo.yaml|" .env.example > .env
+          git config --global user.name ci
+          git config --global user.email ci@example.invalid
+      - name: Run fast tests
+        run: python -m pytest -q -m "not slow"

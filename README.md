@@ -1,5 +1,7 @@
 # temporal-vault-rag
 
+[![tests](https://github.com/0gnm0-afk/temporal-vault-rag/actions/workflows/tests.yml/badge.svg)](https://github.com/0gnm0-afk/temporal-vault-rag/actions/workflows/tests.yml)
+
 **날짜가 붙은 개인 기록에 "그때 값은?", "지금 값은?"을 물었을 때 RAG가 얼마나 맞게 찾는지, 투자에이전트의 지식 DB를 RAG로 옮기기 전에 작게 시험한 기록입니다.**
 
 - **문제:** 의미로만 찾는 기본 RAG는 시점이 다른 값을 섞어 가져옵니다. 실제 기록 청크의 18%가 서로 다른 날짜의 값을 한 조각에 담고 있었습니다.
@@ -321,7 +323,7 @@ python -m tvrag.run --config configs/demo.yaml --modes A B C CL D DL
 
 - **실행 결과:** 위 명령으로 데모 볼트를 청킹하고, 인덱스를 만들고, 사실표를 만든 뒤 6개 모드를 평가합니다. CPU에서 2-3분 걸립니다. 결과는 `demo/results/<날짜>_<모드>.{json,md}`와 비교표 `<날짜>_ABCCLDDL.md`로 나옵니다. 같은 명령을 다시 돌리면 같은 결과 파일이 나옵니다.
 - **모델:** bge-m3 dense 가중치 약 2.2GB를 받으며, 캐시 경로는 `.env`의 `HF_HOME`입니다.
-- **테스트:** `python -m pytest -q`. 모델을 내려받지 않고 돌리려면 `-m "not slow"`를 붙입니다.
+- **테스트:** `python -m pytest -q`. 모델을 내려받지 않고 돌리려면 `-m "not slow"`를 붙입니다. GitHub Actions는 모델을 받지 않는 빠른 테스트만 돌립니다(`.github/workflows/tests.yml`).
 - **한 질문 검색:** `python -m tvrag.retrieve --config configs/demo.yaml -m D -k 5 --ref 2025-06-30 "지금 하루 칼로리 한도는?"`
 - **설계 판단:** `docs/design.md`
 - **모듈별 역할:** `CLAUDE.md`
